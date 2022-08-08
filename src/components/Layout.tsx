@@ -1,28 +1,23 @@
-import Head from 'next/head'
-import React from 'react'
-import Footer from './Footer'
-import Navbar from './Navbar'
+import Head from "next/head";
+import React from "react";
+import Footer from "./Footer";
+import Navbar from "./Navbar";
 
-const Layout = ({title,children}:any) => {
+const Layout = ({ title, children, type }: any) => {
   return (
-    <div>
-        <div>
-        <Head>
+    <div className="h-screen">
+      <Head>
         <title>{title}</title>
       </Head>
       <nav>
-      <Navbar/>
+        <Navbar type={type} />
       </nav>
-      <main className='px-[6rem]' >
-        {children}
-      </main>
+      <main className="px-[6rem] ">{children}</main>
       <footer>
-        <Footer/>
+        <Footer />
       </footer>
-        </div>
-      
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

@@ -8,7 +8,7 @@ const Home: NextPage = () => {
  
 
   return (
-    <Layout title='Home' >
+    <Layout title='Home' type='home' >
      <Hero/>
      <Actions/>
     </Layout>
