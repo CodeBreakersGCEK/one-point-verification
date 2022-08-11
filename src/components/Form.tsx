@@ -21,9 +21,12 @@ const Form = () => {
     setUserData(initialState);
   };
 
+  const inputClass =
+    "border-2 border-sky-900 outline-none rounded-sm px-2 py-[3px]";
+
   return (
-    <div className='w-auto h-auto  rounded-lg p-2 flex border-[3px] border-[#0C4A6E] '>
-      <div className='flex-1 bg-[#C5EAFF] w-96 h-[380px] flex items-center justify-center  '>
+    <div className='w-auto h-auto  rounded-lg p-2 flex border-2 border-sky-900'>
+      <div className='flex-1 bg-sky-200 w-96 h-96 flex items-center justify-center'>
         <Image src='/images/login.png' alt='login' width={196} height={195} />
       </div>
 
@@ -32,9 +35,9 @@ const Form = () => {
         onSubmit={SubmitForm}>
         <div className='flex items-center justify-between mb-2'>
           <h4
-            className={`text-center flex-1 cursor-pointer ${
-              !isSignIn && "border-b-4"
-            } pb-[1px] border-[#0C4A6E]`}
+            className={`text-center flex-1 cursor-pointer border-b-4 ${
+              !isSignIn ? "border-sky-900" : "border-transparent"
+            }`}
             onClick={() => {
               setIsSignIn(false);
               setUserData(initialState);
@@ -42,9 +45,9 @@ const Form = () => {
             Register
           </h4>
           <h4
-            className={`text-center flex-1 cursor-pointer ${
-              isSignIn && "border-b-4"
-            } pb-[1px] border-[#0C4A6E]`}
+            className={`text-center flex-1 cursor-pointer border-b-4 ${
+              isSignIn ? "border-sky-900" : "border-transparent"
+            }`}
             onClick={() => {
               setIsSignIn(true);
               setUserData(initialState);
@@ -55,7 +58,7 @@ const Form = () => {
         {isSignIn && (
           <>
             <select
-              className='border-2 outline-none border-[#0C4A6E] rounded-sm px-2  py-[3px]  '
+              className={`${inputClass}`}
               value={userData.type}
               onChange={(e) =>
                 setUserData({ ...userData, type: e.target.value })
@@ -67,7 +70,7 @@ const Form = () => {
               <option>Student</option>
             </select>
             <input
-              className='border-2 border-[#0C4A6E] outline-none rounded-sm px-2 py-[3px]'
+              className={`${inputClass}`}
               value={userData.id}
               type='text'
               placeholder='Unique Id'
@@ -78,7 +81,7 @@ const Form = () => {
         {!isSignIn && (
           <>
             <input
-              className='border-2 border-[#0C4A6E] outline-none rounded-sm  px-2 py-[3px] '
+              className={`${inputClass}`}
               type='email'
               value={userData.email}
               placeholder='Email id'
@@ -87,7 +90,7 @@ const Form = () => {
               }
             />
             <input
-              className='border-2 border-[#0C4A6E] outline-none rounded-sm  px-2 py-[3px] '
+              className={`${inputClass}`}
               value={userData.adharno}
               type='number'
               placeholder='AADHAR Number'
@@ -96,7 +99,7 @@ const Form = () => {
               }
             />
             <input
-              className='border-2 border-[#0C4A6E] outline-none rounded-sm  px-2 py-[3px] '
+              className={`${inputClass}`}
               value={userData.panno}
               type='text'
               placeholder='PAN Number'
@@ -108,7 +111,7 @@ const Form = () => {
         )}
 
         <input
-          className='border-2 border-[#0C4A6E] outline-none rounded-sm  px-2 py-[3px] '
+          className={`${inputClass}`}
           value={userData.password}
           type='password'
           placeholder='Password'
@@ -116,7 +119,7 @@ const Form = () => {
             setUserData({ ...userData, password: e.target.value })
           }
         />
-        <button className=' text-center bg-sky-900 text-white text-[19px] font-normal  leading-6 rounded-3xl px-[30px] py-[5px] mt-5 scale-100 hover:scale-105 transition-transform  border-[1px] border-white   duration-300 ease-linear '>
+        <button className=' text-center bg-sky-900 text-white text-lg font-normal leading-6 rounded-3xl px-8 py-1 mt-5 scale-100 hover:scale-105 transition-transform border border-white duration-300 ease-linear'>
           {isSignIn ? "Login" : "Register"}
         </button>
       </form>

@@ -12,7 +12,7 @@ const Layout = ({ title, children, type }: any) => {
       <nav>
         <Navbar type={type} />
       </nav>
-      <main className='px-[6rem] '>{children}</main>
+      <main className='px-24'>{children}</main>
       <footer>
         <Footer />
       </footer>

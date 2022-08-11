@@ -34,7 +34,7 @@ const Actions = () => {
       <div className='mt-16 flex gap-1 items-center justify-around'>
         {actions.map((action) => (
           <div
-            className='w-80 h-full p-6 px-4 bg-[#C5EAFF] flex flex-col items-center scale-100 hover:scale-110 transition-transform ease-out delay-400 cursor-pointer'
+            className='w-80 h-full p-6 px-4 bg-sky-200 flex flex-col items-center scale-100 hover:scale-110 transition-transform ease-out delay-400 cursor-pointer'
             key={action.id}>
             <img src={action.src} alt={action.title} className='my-9' />
             <h3 className='text-2xl font-popins font-medium my-4 '>
