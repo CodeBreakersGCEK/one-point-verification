@@ -26,7 +26,7 @@ export type UID = {
   district: string;
   state: string;
   pincode: string;
-}[];
+};
 
 // 1. Input data:
 // i. Aadhaar number
@@ -45,8 +45,6 @@ export type UID = {
 
 export type NPCI = {
   aadharLinkageStatus: boolean;
-  accountStatus: string;
-  subsidyAccountFlag: boolean;
   accountNumber: string;
   accountType: string;
 };
@@ -60,6 +58,7 @@ export type PAN = {
 
 export type BankAccount = {
   accountNumber: string;
+  accountType: string;
   bankName: string;
   branchName: string;
   ifscCode: string;
