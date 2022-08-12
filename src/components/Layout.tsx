@@ -5,17 +5,16 @@ import Navbar from "./Navbar";
 
 const Layout = ({ title, children, type }: any) => {
   return (
-    <div className='h-screen'>
+    <div className="h-screen grid myRow ">
       <Head>
         <title>{title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="utf-8" />
       </Head>
-      <nav>
-        <Navbar type={type} />
-      </nav>
-      <main className='px-24'>{children}</main>
-      <footer>
-        <Footer />
-      </footer>
+      <Navbar type={type} />
+      <div className="px-2  h-full md:px-24 ">{children}</div>
+
+      <Footer />
     </div>
   );
 };

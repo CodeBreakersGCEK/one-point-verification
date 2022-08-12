@@ -5,7 +5,7 @@ import React from "react";
 const Auth = () => {
   return (
     <Layout>
-      <div className='flex items-center justify-center my-24'>
+      <div className="flex items-center justify-center  h-full ">
         <Form />
       </div>
     </Layout>
