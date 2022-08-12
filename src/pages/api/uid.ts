@@ -6,7 +6,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<UID | UID[]>) => {
   const { uid } = req.query;
 
   if (!uid) {
-    res.status(400).json(Aadhar);
+    res.status(200).json(Aadhar);
     return;
   }
 

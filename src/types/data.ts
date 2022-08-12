@@ -1,17 +1,3 @@
-// uid=999941057058
-// name=Shivshankar Choudhury
-// dob=13-05-1968
-// dobt=V
-// gender=M
-// phone=2810806979
-// email=sschoudhury@dummyemail.com
-// street=12 Maulana Azad Marg
-// vtc=New Delhi
-// subdist=New Delhi
-// district=New Delhi
-// state=New delhi
-// pincode=110002
-
 export type UID = {
   uid: string;
   name: string;
@@ -28,21 +14,6 @@ export type UID = {
   pincode: string;
 };
 
-// 1. Input data:
-// i. Aadhaar number
-// ii. Destination bank code(eg: 508508)
-// iii. Account number
-// iv. Customer Consent
-// v. Filler 1
-// vi. Filler 2
-// Responding entity: Bank
-// Response to be provided:
-// 1. Aadhaar Linkage Status (Y or N)
-// 2. Account status
-// 3. Subsidy Account Flag( Y or N)
-// 4. Account Number (only last 4 digits)
-// 5. Account type
-
 export type NPCI = {
   aadharLinkageStatus: boolean;
   accountNumber: string;
@@ -54,6 +25,7 @@ export type PAN = {
   name: string;
   dob: string;
   fathersName: string;
+  aadharNumber: string;
 };
 
 export type BankAccount = {
@@ -65,4 +37,13 @@ export type BankAccount = {
   holderName: string;
   panNumber: string;
   aadharNumber: string;
+};
+
+export type Verify = {
+  id: string;
+  phone: string;
+  email: string;
+  panVerified: boolean;
+  aadharVerified: boolean;
+  bankVerified: boolean;
 };
