@@ -41,9 +41,7 @@ export type BankAccount = {
 
 export type Verify = {
   id: string;
-  phone: string;
-  email: string;
-  panVerified: boolean;
-  aadharVerified: boolean;
-  bankVerified: boolean;
+  pan: string;
+  bankAccount: string;
+  verified: false;
 };
