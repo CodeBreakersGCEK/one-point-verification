@@ -4,12 +4,12 @@ import { BankAccount } from "src/types/data";
 
 const handler = (
   req: NextApiRequest,
-  res: NextApiResponse<BankAccount | BankAccount[]>
+  res: NextApiResponse<BankAccount | string>
 ) => {
   const { accountNumber } = req.query;
 
   if (!accountNumber) {
-    res.status(400).json(BankDetails);
+    res.status(400).json("Enter a valid account number");
     return;
   }
 

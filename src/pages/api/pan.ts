@@ -6,7 +6,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<PAN | PAN[]>) => {
   const { id } = req.query;
 
   if (!id) {
-    res.status(400).json(PanDetails);
+    res.status(200).json(PanDetails);
     return;
   }
 

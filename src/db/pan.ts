@@ -6,5 +6,6 @@ export const PanDetails: PAN[] = [
     name: "John Doe",
     dob: "01/01/1990",
     fathersName: "Mark Doe",
+    aadharNumber: "1234567890123",
   },
 ];
