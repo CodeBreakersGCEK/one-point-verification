@@ -12,11 +12,6 @@ const Navbar = ({ type }: any) => {
         <div className="flex items-center justify-between gap-6">
           {type == "home" && (
             <>
-              <button
-                className={`border bg-transparent md:block text-white ${navBarClassHome} hidden `}
-              >
-                <Link href="/auth">Register</Link>
-              </button>
               <button className={`bg-sky-300 text-sky-900 ${navBarClassHome}`}>
                 <Link href="/auth">Login</Link>
               </button>

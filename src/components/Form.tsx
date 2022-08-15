@@ -2,16 +2,10 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 const initialState = {
-  email: "",
-  adharno: "",
-  panno: "",
   password: "",
-  type: "",
   id: "",
 };
 const Form = () => {
-  const [isSignIn, setIsSignIn] = useState(false);
-
   const [userData, setUserData] = useState(initialState);
 
   const SubmitForm = (e: any) => {
@@ -36,87 +30,18 @@ const Form = () => {
         onSubmit={SubmitForm}
       >
         <div className="flex items-center justify-between mb-2">
-          <h4
-            className={`text-center flex-1 cursor-pointer border-b-4 ${
-              !isSignIn ? "border-sky-900" : "border-transparent"
-            }`}
-            onClick={() => {
-              setIsSignIn(false);
-              setUserData(initialState);
-            }}
-          >
-            Register
-          </h4>
-          <h4
-            className={`text-center flex-1 cursor-pointer border-b-4 ${
-              isSignIn ? "border-sky-900" : "border-transparent"
-            }`}
-            onClick={() => {
-              setIsSignIn(true);
-              setUserData(initialState);
-            }}
-          >
+          <h4 className="text-center text-lg font-popins text-sky-900 font-bold">
             Login
           </h4>
         </div>
-        {isSignIn && (
-          <>
-            <select
-              className={`${inputClass}`}
-              value={userData.type}
-              onChange={(e) =>
-                setUserData({ ...userData, type: e.target.value })
-              }
-            >
-              <option value="" disabled>
-                Input Type
-              </option>
-              <option value="aicte">AICTE</option>
-              <option value="staff authority">Staff authority</option>
-              <option value="institute">Institute</option>
-              <option value="staff">Staff</option>
-              <option value="student">Student</option>
-            </select>
-            <input
-              className={`${inputClass}`}
-              value={userData.id}
-              type="text"
-              placeholder="Unique Id"
-              onChange={(e) => setUserData({ ...userData, id: e.target.value })}
-            />
-          </>
-        )}
-        {!isSignIn && (
-          <>
-            <input
-              className={`${inputClass}`}
-              type="email"
-              value={userData.email}
-              placeholder="Email id"
-              onChange={(e) =>
-                setUserData({ ...userData, email: e.target.value })
-              }
-            />
-            <input
-              className={`${inputClass}`}
-              value={userData.adharno}
-              type="number"
-              placeholder="AADHAR Number"
-              onChange={(e) =>
-                setUserData({ ...userData, adharno: e.target.value })
-              }
-            />
-            <input
-              className={`${inputClass}`}
-              value={userData.panno}
-              type="text"
-              placeholder="PAN Number"
-              onChange={(e) =>
-                setUserData({ ...userData, panno: e.target.value })
-              }
-            />
-          </>
-        )}
+
+        <input
+          className={`${inputClass}`}
+          value={userData.id}
+          type="text"
+          placeholder="Unique Id"
+          onChange={(e) => setUserData({ ...userData, id: e.target.value })}
+        />
 
         <input
           className={`${inputClass}`}
@@ -128,7 +53,7 @@ const Form = () => {
           }
         />
         <button className=" text-center bg-sky-900 text-white text-lg font-normal leading-6 rounded-3xl px-8 py-2 mt-5 scale-100 hover:scale-105 transition-transform border border-white duration-300 ease-linear">
-          {isSignIn ? "Login" : "Register"}
+          Login
         </button>
       </form>
     </div>

@@ -1,55 +1,65 @@
-import connectMongo from "@utils/connectMongo";
-import { NextApiRequest, NextApiResponse } from "next";
-import { BankDetails } from "src/db/bank";
+import type { NextApiRequest, NextApiResponse } from "next";
 import VerifyModel from "src/models/verify";
-import { Verify } from "src/types/data";
+import AadharSchema from "src/models/aadhar";
+import PanSchema from "src/models/pan";
+import BankSchema from "src/models/bank";
+import connectMongo from "@utils/connectMongo";
 
-const handler = async (
+export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Verify | any>
-) => {
-  const { uid, pan, bankAccount } = req.query;
-
+  res: NextApiResponse
+) {
   await connectMongo();
+  const { aadhar, pan, bankAcc } = req.body;
+  const { method } = req;
 
-  if (!uid) {
-    res.status(400).json({
-      message: "Please provide a valid UID",
-    });
-    return;
+  if (method === "POST") {
+    try {
+      const user = await VerifyModel.findOne({ uid: aadhar });
+      if (user) {
+        res
+          .status(200)
+          .json({ message: "This aadhar is already verified with BrainChuck" });
+        return;
+      }
+      const uidData = await AadharSchema.findOne({ uid: aadhar });
+
+      if (!uidData) {
+        res.status(400).json({
+          message: "Invalid Aadhar",
+        });
+        return;
+      }
+      const panData = await PanSchema.findOne({ id: pan });
+      if (!panData) {
+        res.status(400).json({
+          message: "Invalid PAN card",
+        });
+      }
+
+      const BankData = await BankSchema.findOne({ accountNumber: bankAcc });
+      if (!BankData) {
+        res.status(400).json({ message: "Invalid Bank account" });
+        return;
+      }
+
+      //  Check Verificaion
+
+      if (panData.aadharNumber === aadhar && BankData.aadharNumber == aadhar) {
+        const newUser = new VerifyModel({
+          uid: aadhar,
+          bankAccount: bankAcc,
+          pan,
+          verified: true,
+        });
+        await newUser.save();
+        res.status(200).json({ data: newUser });
+        return;
+      }
+
+      res.status(404).json({ message: "User not verified" });
+    } catch (error) {
+      res.status(404).json(error);
+    }
   }
-
-  if (!pan) {
-    res.status(400).json({
-      message: "Please provide a valid PAN",
-    });
-    return;
-  }
-
-  if (!bankAccount) {
-    res.status(400).json({
-      message: "Please provide a valid BankAccount",
-    });
-    return;
-  }
-
-  const result = BankDetails.find(
-    (b) =>
-      b.aadharNumber === uid &&
-      b.accountNumber === bankAccount &&
-      b.panNumber === pan
-  );
-
-  const userData = new VerifyModel({
-    id: uid,
-    pan: pan,
-    bankAccount: bankAccount,
-    verified: result ? true : false,
-  });
-
-  const data = await userData.save();
-
-  res.json({ data });
-};
-
-export default handler;
+}

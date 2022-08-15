@@ -4,20 +4,20 @@ import React from "react";
 const actions = [
   {
     id: "1",
-    title: "Register Yourself",
-    body: "Register yourself in the portal.",
+    title: "Aadhar Verification",
+    body: "AADHAR verification once in life",
     src: "/images/person.png",
   },
   {
     id: "2",
-    title: "Verify Documents",
-    body: "Upload verification  documents for verification.",
+    title: "Pan Verification",
+    body: "Check your Pan is verified or not",
     src: "/images/documents.png",
   },
   {
     id: "3",
-    title: "Use Unique Id",
-    body: "Use your unique id for regisrtation.",
+    title: "Bank Verification",
+    body: "Check your Bank is linked or not",
     src: "/images/vector.png",
   },
 ];

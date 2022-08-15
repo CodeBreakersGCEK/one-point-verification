@@ -1,11 +1,15 @@
 import { Schema, model, models } from "mongoose";
 
 const verifySchema = new Schema({
-  id: {
+  uid: {
     type: String,
+    requied: true,
+    unique: true,
   },
   pan: {
     type: String,
+    requied: true,
+    unique: true,
   },
   bankAccount: {
     type: String,
