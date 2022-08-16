@@ -1,9 +1,9 @@
-import Image from "next/image";
-import React, { useState } from "react";
+import Image from 'next/image';
+import React, { useState } from 'react';
 
 const initialState = {
-  password: "",
-  id: "",
+  password: '',
+  id: '',
 };
 const Form = () => {
   const [userData, setUserData] = useState(initialState);
@@ -17,7 +17,7 @@ const Form = () => {
   };
 
   const inputClass =
-    "border-2 border-sky-900 outline-none rounded-sm px-2 py-[3px]";
+    'border-2 border-sky-900 outline-none rounded-sm px-2 py-[3px]';
 
   return (
     <div className="w-auto h-auto flex-col md:flex-row flex  rounded-lg p-2 my-4  border-2 border-sky-900">
