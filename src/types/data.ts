@@ -1,4 +1,4 @@
-export type UID = {
+export interface UID {
   uid: string;
   name: string;
   dob: string;
@@ -12,23 +12,23 @@ export type UID = {
   district: string;
   state: string;
   pincode: string;
-};
+}
 
-export type NPCI = {
+export interface NPCI {
   aadharLinkageStatus: boolean;
   accountNumber: string;
   accountType: string;
-};
+}
 
-export type PAN = {
+export interface PAN {
   id: string;
   name: string;
   dob: string;
   fathersName: string;
   aadharNumber: string;
-};
+}
 
-export type BankAccount = {
+export interface BankAccount {
   accountNumber: string;
   accountType: string;
   bankName: string;
@@ -37,11 +37,11 @@ export type BankAccount = {
   holderName: string;
   panNumber: string;
   aadharNumber: string;
-};
+}
 
-export type Verify = {
-  id: string;
+export interface Verify {
+  uid: string;
   pan: string;
   bankAccount: string;
   verified: false;
-};
+}

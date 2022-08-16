@@ -1,6 +1,7 @@
 import { Schema, model, models } from "mongoose";
+import { PAN } from "src/types/data";
 
-const panSchema = new Schema({
+const panSchema = new Schema<PAN>({
   id: {
     type: String,
     required: true,
@@ -16,6 +17,6 @@ const panSchema = new Schema({
   },
 });
 
-const PanSchema = models.Pan || model("Pan", panSchema);
+const PanSchema = models.Pan || model<PAN>("Pan", panSchema);
 
 export default PanSchema;

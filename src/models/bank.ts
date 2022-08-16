@@ -1,6 +1,7 @@
 import { Schema, model, models } from "mongoose";
+import { BankAccount } from "src/types/data";
 
-const bankSchema = new Schema({
+const bankSchema = new Schema<BankAccount>({
   accountNumber: {
     type: String,
     required: true,
@@ -21,6 +22,6 @@ const bankSchema = new Schema({
   },
 });
 
-const BankSchema = models.Bank || model("Bank", bankSchema);
+const BankSchema = models.Bank || model<BankAccount>("Bank", bankSchema);
 
 export default BankSchema;

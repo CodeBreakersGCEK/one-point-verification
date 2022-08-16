@@ -1,6 +1,7 @@
 import { Schema, model, models } from "mongoose";
+import { Verify } from "src/types/data";
 
-const verifySchema = new Schema({
+const verifySchema = new Schema<Verify>({
   uid: {
     type: String,
     requied: true,
@@ -20,6 +21,6 @@ const verifySchema = new Schema({
   },
 });
 
-const VerifyModel = models.Verify || model("Verify", verifySchema);
+const VerifyModel = models.Verify || model<Verify>("Verify", verifySchema);
 
 export default VerifyModel;

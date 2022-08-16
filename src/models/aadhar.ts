@@ -1,6 +1,7 @@
 import { Schema, model, models } from "mongoose";
+import { UID } from "src/types/data";
 
-const aadharSchema = new Schema({
+const aadharSchema = new Schema<UID>({
   uid: {
     type: String,
     unique: true,
@@ -20,6 +21,6 @@ const aadharSchema = new Schema({
   pincode: String,
 });
 
-const AadharSchema = models.Aadhar || model("Aadhar", aadharSchema);
+const AadharSchema = models.Aadhar || model<UID>("Aadhar", aadharSchema);
 
 export default AadharSchema;
