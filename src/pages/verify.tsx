@@ -53,9 +53,9 @@ const Verify = () => {
   const field = 'flex gap-3 items-center w-full';
 
   return (
-    <Layout type="verify">
+    <Layout title="Verify">
       {data && isSubmit && showNotification()}
-      <div className="h-full ">
+      <div className="h-screen">
         <form
           onSubmit={onSubmit}
           className="flex items-center h-full justify-center text-sky-900"

@@ -1,11 +1,11 @@
-import type { NextPage } from "next";
-import { Actions, Hero, Layout } from "../components";
+import type { NextPage } from 'next';
+import { Content, Hero, Layout } from '../components';
 
 const Home: NextPage = () => {
   return (
-    <Layout title="Home" type="home">
+    <Layout title="Home">
       <Hero />
-      <Actions />
+      <Content />
     </Layout>
   );
 };

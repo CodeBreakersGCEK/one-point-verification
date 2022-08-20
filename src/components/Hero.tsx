@@ -1,37 +1,44 @@
-import Image from "next/image";
-import React from "react";
-import { useRouter } from "next/router";
+import React from 'react';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import Lottie from 'lottie-react';
+import searchAnimation from '../../public/search_home.json';
+import scrollAnimation from '../../public/scroll.json';
 
 const Hero = () => {
   const router = useRouter();
   return (
-    <div className=" md:mt-5  ">
-      <div className="flex justify-center flex-col-reverse md:flex-row ">
-        <div className="px-2 flex-1 h-full mt-1 md:mt-14">
-          <h1 className="md:text-5xl text-3xl my-2 text-sky-900">
-            One Point Verification
+    <div className="mb-10">
+      <div className="flex justify-center items-center flex-col-reverse lg:flex-row">
+        <div className="px-2 flex-[0.8] h-full md:mt-14 flex flex-col gap-12 items-start">
+          <h1 className="sm:text-7xl text-5xl text-sky-900">
+            <span className="font-extralight">One Point</span> Verification
           </h1>
-          <p className=" md:text-xl text-md font-popins text-gray-600 mt-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
-            inventore id amet quos possimus tempora eaque vel cupiditate,
-            asperiores accusantium hic veniam cum ab temporibus quis officia in
-            ullam itaque?
+          <p className="sm:text-3xl text-2xl text-neutral-500 font-light">
+            The simplest and fastest way to get your UID, PAN, Bank verified
+            with AICTE.
           </p>
           <button
-            onClick={() => router.push("/verify")}
-            className="text-center bg-sky-900 text-white md:text-lg text-md font-normal leading-6 rounded-3xl px-9 py-2 mt-5 scale-100 hover:scale-105 transition-transform border border-white duration-300 ease-linear"
+            onClick={() => router.push('/auth')}
+            className="text-center bg-green-400 text-white sm:text-xl text-md font-normal rounded-lg px-20 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear"
           >
             Verify
           </button>
         </div>
-        <div className="flex-1">
-          <Image
-            src="/images/herobanner.png"
-            alt="hero banner "
-            width={600}
-            height={600}
-          />
+        <div className="absolute right-0 lg:left-0 translate-x-0 lg:translate-x-[-20px] bottom-24">
+          <Image height={300} width={300} src="/hero-bg.svg" alt="hero-bg" />
         </div>
+        <div className="flex-[1.2]">
+          <Lottie animationData={searchAnimation} />
+        </div>
+      </div>
+      <div className="lg:mt-60 md:mt-40 mt-20">
+        <Lottie
+          animationData={scrollAnimation}
+          style={{
+            height: 60,
+          }}
+        />
       </div>
     </div>
   );

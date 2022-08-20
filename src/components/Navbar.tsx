@@ -1,28 +1,50 @@
-import React from "react";
-import Link from "next/link";
-const Navbar = ({ type }: any) => {
-  const navBarClassHome =
-    "border-white text-lg  font-normal leading-6 rounded-3xl md:px-9 px-5 py-1 md:py-2 hover:scale-105 transition-transform duration-300 ease-linear";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { NextPage } from 'next';
+import { HiMenu, HiX } from 'react-icons/hi';
+
+const Navbar: NextPage = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <nav className="w-full bg-sky-700 h-16 px-2 md:px-24 py-8">
-      <div className=" h-full flex text-white flex-row justify-between items-center">
-        <h1 className="text-3xl text-center mx-2">
-          <Link href="/">Logo</Link>
-        </h1>
-        <div className="flex items-center justify-between gap-6">
-          {type == "home" && (
-            <>
-              <button className={`bg-sky-300 text-sky-900 ${navBarClassHome}`}>
-                <Link href="/auth">Login</Link>
-              </button>
-            </>
-          )}
-          {type == "verify" && (
-            <button className={`bg-sky-300 text-sky-900 ${navBarClassHome}`}>
-              <Link href="/auth">Logout</Link>
-            </button>
-          )}
+    <nav className="text-2xl text-white font-medium flex m-3 sticky top-3 z-10">
+      <div className="bg-sky-500 flex-1 px-4 py-2 rounded-l-lg flex justify-between items-center">
+        <Link href="/">
+          <a>
+            One<span className="text-lime-300">Verify</span>
+          </a>
+        </Link>
+        <div className="text-base sm:flex gap-3 font-normal hidden">
+          <Link href="/about">About Us</Link>
+          <Link href="/about">How it works?</Link>
         </div>
+      </div>
+      <div className="bg-green-400 px-4 py-2 rounded-r-lg flex items-center">
+        <Link href="/auth">
+          <a className="hidden sm:block cursor-pointer">Login</a>
+        </Link>
+        {isOpen ? (
+          <HiX
+            className="cursor-pointer sm:hidden"
+            onClick={() => setIsOpen(false)}
+          />
+        ) : (
+          <HiMenu
+            className="cursor-pointer sm:hidden"
+            onClick={() => setIsOpen(true)}
+          />
+        )}
+        {isOpen && (
+          <div className="sm:hidden absolute left-0 top-12 mt-2 mr-2 p-4 bg-white border-2 rounded-lg flex flex-col gap-4 text-black text-xl font-normal w-full">
+            <Link href="/about">About Us</Link>
+            <Link href="/about">How it works?</Link>
+            <Link href="/verify">
+              <a className="bg-green-400 px-4 py-2 rounded-md text-white flex items-center justify-center">
+                Login
+              </a>
+            </Link>
+          </div>
+        )}
       </div>
     </nav>
   );

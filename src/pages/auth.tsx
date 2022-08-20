@@ -1,11 +1,11 @@
-import { Form } from "../components";
-import Layout from "@components/Layout";
-import React from "react";
+import { Form } from '../components';
+import Layout from '@components/Layout';
+import React from 'react';
 
 const Auth = () => {
   return (
-    <Layout>
-      <div className="flex items-center justify-center  h-full ">
+    <Layout title="SignIn">
+      <div className="flex items-center justify-center h-screen">
         <Form />
       </div>
     </Layout>
