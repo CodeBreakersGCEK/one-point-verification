@@ -7,7 +7,7 @@ const Navbar: NextPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="text-2xl text-white font-medium flex m-3 sticky top-3 z-10">
+    <nav className="text-2xl text-white font-medium flex m-3 sticky top-3 z-10 shadow-lg">
       <div className="bg-sky-500 flex-1 px-4 py-2 rounded-l-lg flex justify-between items-center">
         <Link href="/">
           <a>

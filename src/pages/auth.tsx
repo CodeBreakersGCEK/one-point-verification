@@ -5,7 +5,7 @@ import React from 'react';
 const Auth = () => {
   return (
     <Layout title="SignIn">
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center h-[80vh]">
         <Form />
       </div>
     </Layout>
