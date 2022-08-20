@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Layout } from '../components';
 import Image from 'next/image';
 import swal from 'sweetalert2';
+
 interface FormValues {
   aadhar: string;
   pan: string;
@@ -34,7 +35,6 @@ const Verify = () => {
       setIsSubmit(true);
     }
   };
-  // console.log(data);
 
   const showNotification = () => {
     swal.fire({
@@ -55,7 +55,7 @@ const Verify = () => {
   return (
     <Layout title="Verify">
       {data && isSubmit && showNotification()}
-      <div className="h-screen">
+      <div className="h-[80vh]">
         <form
           onSubmit={onSubmit}
           className="flex items-center h-full justify-center text-sky-900"
