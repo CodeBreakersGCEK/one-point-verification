@@ -19,7 +19,10 @@ export default async function handler(
       if (user) {
         res
           .status(200)
-          .json({ message: 'This aadhar is already verified with BrainChuck' });
+          .json({
+            message: 'This aadhar is already verified with BrainChuck',
+            status: 'success',
+          });
         return;
       }
       const uidData = await AadharSchema.findOne({ uid: aadhar });
@@ -27,6 +30,7 @@ export default async function handler(
       if (!uidData) {
         res.status(200).json({
           message: 'Invalid Aadhar',
+          status: 'error',
         });
         return;
       }
@@ -34,12 +38,15 @@ export default async function handler(
       if (!panData) {
         res.status(200).json({
           message: 'Invalid PAN card',
+          status: 'error',
         });
       }
 
       const BankData = await BankSchema.findOne({ accountNumber: account });
       if (!BankData) {
-        res.status(200).json({ message: 'Invalid Bank account' });
+        res
+          .status(200)
+          .json({ message: 'Invalid Bank account', status: 'error' });
         return;
       }
 
@@ -53,11 +60,13 @@ export default async function handler(
           verified: true,
         });
         await newUser.save();
-        res.status(200).json({ data: newUser, message: 'Verified' });
+        res
+          .status(200)
+          .json({ newUser, message: 'Verified', status: 'success' });
         return;
       }
 
-      res.status(200).json({ message: 'User not verified' });
+      res.status(200).json({ message: 'User not verified', status: 'error' });
     } catch (error) {
       res.status(404).json(error);
     }

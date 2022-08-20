@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Layout } from '../components';
 import Image from 'next/image';
-
+import swal from 'sweetalert2';
 interface FormValues {
   aadhar: string;
   pan: string;
@@ -16,147 +16,111 @@ const initialValues = {
 };
 
 const Verify = () => {
-  const [formErrors, setFormErrors] = useState<FormValues>(initialValues);
-  const [isSubmit, setIsSubmit] = useState(false);
   const [formValues, setFormValues] = useState<FormValues>(initialValues);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>({});
-
+  const [isSubmit, setIsSubmit] = useState(false);
   const onSubmit = async (e: any) => {
     setLoading(true);
     e.preventDefault();
-    setFormErrors(validate(formValues));
-    setIsSubmit(true);
 
     const response = await axios.post('/api/verify', formValues);
 
     if (response.status === 200) {
       setData(response.data);
       setLoading(false);
-      setFormErrors(initialValues);
+
       setFormValues(initialValues);
+      setIsSubmit(true);
     }
-
-    console.log(response);
   };
+  // console.log(data);
 
+  const showNotification = () => {
+    swal.fire({
+      title: data?.status == 'success' ? 'Success' : 'Error',
+      text: data?.message,
+      icon: data.status,
+      confirmButtonText: 'OKAY',
+    });
+    setIsSubmit(false);
+  };
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const validate = (values: FormValues) => {
-    const errors = {
-      aadhar: '',
-      pan: '',
-      account: '',
-    };
-
-    if (!values.aadhar) {
-      errors.aadhar = 'aadhar is required!';
-    } else if (values.aadhar.length < 12) {
-      errors.aadhar = 'Invalid aadhar';
-    }
-    if (!values.pan) {
-      errors.pan = 'Pan is required!';
-    } else if (values.pan.length < 10) {
-      errors.pan = 'Invalid Pan';
-    }
-    if (!values.account) {
-      errors.account = 'Account is required';
-    } else if (values.account.length < 9) {
-      errors.account = 'Account must be more than 9 characters';
-    } else if (values.account.length > 16) {
-      errors.account = 'Account cannot exceed more than 16 characters';
-    }
-    return errors;
-  };
-
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-    }
-  }, [formErrors]);
-
   const field = 'flex gap-3 items-center w-full';
 
   return (
     <Layout type="verify">
+      {data && isSubmit && showNotification()}
       <div className="h-full ">
-        {loading ? (
-          <div>Loading...</div>
-        ) : isSubmit ? (
-          <div>{data.message}</div>
-        ) : (
-          <form
-            onSubmit={onSubmit}
-            className="flex items-center h-full justify-center text-sky-900"
-          >
-            <div className="md:px-7 px-2 md:py-10 py-4 md:w-[650px] w-full flex flex-col items-center justify-center gap-1 border-[3px] border-sky-800 rounded-lg ">
-              <div className={field}>
-                <label>
-                  <Image
-                    src="/images/aadhar.png"
-                    width={65}
-                    height={30}
-                    alt="aadhar"
-                  />
-                </label>
-                <input
-                  type="number"
-                  name="aadhar"
-                  placeholder="0000-0000-0000"
-                  value={formValues.aadhar}
-                  onChange={handleChange}
-                  className="w-full text-center text-xl outline-none border-[1px] rounded-lg  border-sky-800"
+        <form
+          onSubmit={onSubmit}
+          className="flex items-center h-full justify-center text-sky-900"
+        >
+          <div className="md:px-7 px-2 md:py-10 py-4 md:w-[650px] w-full flex flex-col items-center justify-center gap-1 border-[3px] border-sky-800 rounded-lg ">
+            <div className={field}>
+              <label>
+                <Image
+                  src="/images/aadhar.png"
+                  width={65}
+                  height={30}
+                  alt="aadhar"
                 />
-              </div>
-              <p className="text-red-600 w-full">{formErrors.aadhar}</p>
-              <div className={field}>
-                <label>
-                  <Image
-                    src="/images/pan.png"
-                    width={65}
-                    height={30}
-                    alt="pan"
-                  />
-                </label>
-                <input
-                  type="text"
-                  name="pan"
-                  placeholder="AAAAA12345"
-                  value={formValues.pan}
-                  onChange={handleChange}
-                  className="w-full text-center text-xl outline-none border-[1px] rounded-lg  border-sky-800 uppercase"
-                />
-              </div>
-              <p className="text-red-600 w-full">{formErrors.pan}</p>
-              <div className={field}>
-                <label>
-                  <Image
-                    src="/images/bank.png"
-                    width={65}
-                    height={30}
-                    alt="bank"
-                  />
-                </label>
-                <input
-                  type="number"
-                  name="account"
-                  placeholder="123456789"
-                  value={formValues.account}
-                  onChange={handleChange}
-                  className="w-full text-center text-xl outline-none border-[1px] rounded-lg  border-sky-800"
-                />
-              </div>
-              <p className="text-red-600 w-full">{formErrors.account}</p>
-
-              <button className=" text-center bg-sky-900 text-white text-lg  font-normal leading-6 rounded-3xl   px-14 py-1 md:py-2 mt-5 scale-100 hover:scale-105 transition-transform   duration-300 ease-linear">
-                Verify
-              </button>
+              </label>
+              <input
+                type="number"
+                name="aadhar"
+                required
+                placeholder="0000-0000-0000"
+                value={formValues.aadhar}
+                onChange={handleChange}
+                className="w-full text-center text-xl outline-none border-[1px] rounded-lg  border-sky-800"
+              />
             </div>
-          </form>
-        )}
+
+            <div className={field}>
+              <label>
+                <Image src="/images/pan.png" width={65} height={30} alt="pan" />
+              </label>
+              <input
+                type="text"
+                name="pan"
+                required
+                placeholder="AAAAA12345"
+                value={formValues.pan}
+                onChange={handleChange}
+                className="w-full text-center text-xl outline-none border-[1px] rounded-lg  border-sky-800 uppercase"
+              />
+            </div>
+
+            <div className={field}>
+              <label>
+                <Image
+                  src="/images/bank.png"
+                  width={65}
+                  height={30}
+                  alt="bank"
+                />
+              </label>
+              <input
+                type="number"
+                name="account"
+                placeholder="123456789"
+                required
+                value={formValues.account}
+                onChange={handleChange}
+                className="w-full text-center text-xl outline-none border-[1px] rounded-lg  border-sky-800"
+              />
+            </div>
+
+            <button className=" text-center bg-sky-900 text-white text-lg  font-normal leading-6 rounded-3xl   px-14 py-1 md:py-2 mt-5 scale-100 hover:scale-105 transition-transform   duration-300 ease-linear">
+              {loading ? 'Loading...' : 'Verify'}
+            </button>
+          </div>
+        </form>
       </div>
     </Layout>
   );
