@@ -1,15 +1,16 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import Lottie from 'lottie-react';
 import searchAnimation from '../../public/search_home.json';
-import Image from 'next/image';
+import scrollAnimation from '../../public/scroll.json';
 
 const Hero = () => {
   const router = useRouter();
   return (
-    <div className="lg:mb-0 mb-10">
+    <div className="mb-10">
       <div className="flex justify-center items-center flex-col-reverse lg:flex-row">
-        <div className="px-2 flex-1 h-full md:mt-14 flex flex-col gap-12 items-start">
+        <div className="px-2 flex-[0.8] h-full md:mt-14 flex flex-col gap-12 items-start">
           <h1 className="sm:text-7xl text-5xl text-sky-900">
             <span className="font-extralight">One Point</span> Verification
           </h1>
@@ -27,9 +28,17 @@ const Hero = () => {
         <div className="absolute right-0 lg:left-0 translate-x-0 lg:translate-x-[-20px] bottom-24">
           <Image height={300} width={300} src="/hero-bg.svg" alt="hero-bg" />
         </div>
-        <div className="flex-1">
+        <div className="flex-[1.2]">
           <Lottie animationData={searchAnimation} />
         </div>
+      </div>
+      <div className="lg:mt-60 md:mt-40 mt-20">
+        <Lottie
+          animationData={scrollAnimation}
+          style={{
+            height: 60,
+          }}
+        />
       </div>
     </div>
   );

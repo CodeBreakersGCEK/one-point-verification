@@ -3,11 +3,7 @@ import Link from 'next/link';
 import { NextPage } from 'next';
 import { HiMenu, HiX } from 'react-icons/hi';
 
-interface NavbarProps {
-  type: string;
-}
-
-const Navbar: NextPage<NavbarProps> = ({ type }) => {
+const Navbar: NextPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
