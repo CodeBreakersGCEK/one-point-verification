@@ -9,7 +9,7 @@ const initialState = {
   email: '',
 };
 const Form = ({ setIsUser }: any) => {
-  const [isRegister, setIsRegister] = useState(true);
+  const [isRegister, setIsRegister] = useState(false);
   const [userData, setUserData] = useState(initialState);
 
   const SubmitForm = (e: any) => {
