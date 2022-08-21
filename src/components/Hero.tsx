@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Lottie from 'lottie-react';
 import searchAnimation from '../../public/search_home.json';
 import scrollAnimation from '../../public/scroll.json';
+import Link from 'next/link';
 
 const Hero = () => {
   const router = useRouter();
@@ -18,14 +19,13 @@ const Hero = () => {
             The simplest and fastest way to get your UID, PAN, Bank verified
             with AICTE.
           </p>
-          <button
-            onClick={() => router.push('/auth')}
-            className="text-center bg-green-400 text-white sm:text-xl text-md font-normal rounded-lg px-20 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear"
-          >
-            Verify
-          </button>
+          <Link href="/auth">
+            <a className="text-center bg-green-400 text-white text-xl text-md font-normal rounded-lg px-20 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear">
+              Verify
+            </a>
+          </Link>
         </div>
-        <div className="absolute right-0 lg:left-0 translate-x-0 lg:translate-x-[-20px] bottom-24">
+        <div className="absolute right-0 lg:left-0 translate-x-0 lg:translate-x-[-20px] bottom-24 -z-10">
           <Image height={300} width={300} src="/hero-bg.svg" alt="hero-bg" />
         </div>
         <div className="flex-[1.2]">
