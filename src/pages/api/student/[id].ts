@@ -12,24 +12,28 @@ export default async function handler(
   const {
     query: { id },
   } = req;
-  console.log(id);
+
   switch (method) {
     case 'GET':
       try {
         const data = await StudentSchema.findById(id);
         if (!data) {
-          res.status(404).json({ message: 'Student IS NOT EXIST' });
+          res
+            .status(200)
+            .json({ message: 'Student IS NOT EXIST', status: 'error' });
         }
-        res.status(200).json(data);
-      } catch (error) {
-        res.status(404).json(error);
+        res.status(200).json({ data, status: 'success' });
+      } catch (error: any) {
+        res.status(200).json({ message: error.message, status: 'error' });
       }
       break;
     case 'PUT':
       try {
         const student = await StudentSchema.findById(id);
         if (!student) {
-          res.status(404).json({ message: 'Student is not found' });
+          res
+            .status(200)
+            .json({ message: 'Student is not found', status: 'error' });
         }
         if (req.body.password) {
           const salt = bcrypt.genSaltSync(10);
@@ -43,9 +47,9 @@ export default async function handler(
           { new: true },
         );
 
-        res.status(200).json(updatedStudent);
-      } catch (error) {
-        res.status(404).json(error);
+        res.status(200).json({ data: updatedStudent, status: 'success' });
+      } catch (error: any) {
+        res.status(200).json({ message: error.message, status: 'error' });
       }
 
       break;
@@ -57,8 +61,8 @@ export default async function handler(
         }
         await StudentSchema.findByIdAndDelete(id);
         res.status(200).json({ message: 'Student deleted' });
-      } catch (error) {
-        res.status(500).json(error);
+      } catch (error: any) {
+        res.status(200).json({ message: error.message, status: 'error' });
       }
 
       break;

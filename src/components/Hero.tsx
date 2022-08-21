@@ -5,9 +5,11 @@ import Lottie from 'lottie-react';
 import searchAnimation from '../../public/search_home.json';
 import scrollAnimation from '../../public/scroll.json';
 import Link from 'next/link';
-
+import AppContext from 'src/AppContext';
+import { useContext } from 'react';
 const Hero = () => {
   const router = useRouter();
+  const { user } = useContext(AppContext);
   return (
     <div className="mb-10">
       <div className="flex justify-center items-center flex-col-reverse lg:flex-row">
@@ -19,7 +21,7 @@ const Hero = () => {
             The simplest and fastest way to get your UID, PAN, Bank verified
             with AICTE.
           </p>
-          <Link href="/auth">
+          <Link href={Object.keys(user).length === 0 ? '/auth' : '/verify'}>
             <a className="text-center bg-green-400 text-white text-xl text-md font-normal rounded-lg px-20 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear">
               Verify
             </a>

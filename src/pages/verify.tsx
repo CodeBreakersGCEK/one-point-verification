@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Layout } from '../components';
 import Image from 'next/image';
 import swal from 'sweetalert2';
-
+import AppContext from 'src/AppContext';
+import { useContext } from 'react';
+import { useRouter } from 'next/router';
 interface FormValues {
   aadhar: string;
   pan: string;
@@ -17,6 +19,14 @@ const initialValues = {
 };
 
 const Verify = () => {
+  const router = useRouter();
+  const { user } = useContext(AppContext);
+  useEffect(() => {
+    if (Object.keys(user).length === 0) {
+      router.push('/auth');
+    }
+  }, []);
+
   const [formValues, setFormValues] = useState<FormValues>(initialValues);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>({});

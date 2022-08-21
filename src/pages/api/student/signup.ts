@@ -14,6 +14,11 @@ export default async function handler(
   switch (method) {
     case 'POST':
       try {
+        const student = await StudentSchema.findOne({ uid: req.body.uid });
+        if (student) {
+          res.status(200).json({ message: 'Student  Exist', status: 'error' });
+          return;
+        }
         const salt = bcrypt.genSaltSync(10);
         const hashPassword = bcrypt.hashSync(req.body.password, salt);
         const newStudent = new StudentSchema({
@@ -21,9 +26,9 @@ export default async function handler(
           password: hashPassword,
         });
         await newStudent.save();
-        res.status(200).json(newStudent);
+        res.status(200).json({ data: newStudent, status: 'success' });
       } catch (error: any) {
-        res.status(400).json({ message: error.message });
+        res.status(200).json({ message: error.message, status: 'error' });
       }
       break;
 

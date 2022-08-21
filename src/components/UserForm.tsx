@@ -1,21 +1,45 @@
 import { useState } from 'react';
 import Lottie from 'lottie-react';
 import authAnimation from '../../public/login.json';
-
+import axios from 'axios';
+import { useContext } from 'react';
+import AppContext from 'src/AppContext';
+import { useRouter } from 'next/router';
 const initialState = {
   password: '',
-  id: '',
+  uid: '',
   name: '',
   email: '',
+  type: '',
 };
-const Form = ({ setIsUser }: any) => {
+const Form = ({ setIsUser, setData, data }: any) => {
+  const router = useRouter();
+  const { setUser } = useContext(AppContext);
   const [isRegister, setIsRegister] = useState(false);
   const [userData, setUserData] = useState(initialState);
 
-  const SubmitForm = (e: any) => {
+  const SubmitForm = async (e: any) => {
     e.preventDefault();
-    setUserData(userData);
-    console.log(userData);
+
+    if (isRegister) {
+      const res = await axios.post('/api/student/signup', userData);
+      if (res.data.status === 'success') {
+        setData(res.data.data);
+        setUser(res.data.data);
+        router.push('/verify');
+      } else {
+        window.alert(res.data.message);
+      }
+    } else {
+      const res = await axios.post('/api/student/signin', userData);
+      if (res.data.status === 'success') {
+        setData(res.data.data);
+        setUser(data);
+        router.push('/verify');
+      } else {
+        window.alert(res.data.message);
+      }
+    }
 
     setUserData(initialState);
   };
@@ -58,14 +82,22 @@ const Form = ({ setIsUser }: any) => {
         <div className="flex flex-col justify-between gap-6 p-10 w-full">
           <input
             className={`${inputClass}`}
-            value={userData.id}
+            value={userData.uid}
             type="number"
+            required
             placeholder="Unique Id / AADHAR No."
-            onChange={(e) => setUserData({ ...userData, id: e.target.value })}
+            onChange={(e) => setUserData({ ...userData, uid: e.target.value })}
           />
           {isRegister && (
             <>
-              <select className={`${inputClass}`}>
+              <select
+                className={`${inputClass}`}
+                value={userData.type}
+                required
+                onChange={(e) =>
+                  setUserData({ ...userData, type: e.target.value })
+                }
+              >
                 <option disabled selected value="">
                   Select User Type
                 </option>
@@ -77,6 +109,7 @@ const Form = ({ setIsUser }: any) => {
                 value={userData.name}
                 type="text"
                 placeholder="Name"
+                required
                 onChange={(e) =>
                   setUserData({ ...userData, name: e.target.value })
                 }
@@ -86,6 +119,7 @@ const Form = ({ setIsUser }: any) => {
                 value={userData.email}
                 type="text"
                 placeholder="Email"
+                required
                 onChange={(e) =>
                   setUserData({ ...userData, email: e.target.value })
                 }
