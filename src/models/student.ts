@@ -18,6 +18,10 @@ const studentSchema = new Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+  },
 });
 
 const StudentSchema = models.Student || model('Student', studentSchema);

@@ -65,6 +65,13 @@ const Form = ({ setIsUser }: any) => {
           />
           {isRegister && (
             <>
+              <select className={`${inputClass}`}>
+                <option disabled selected value="">
+                  Select User Type
+                </option>
+                <option value="student">Student</option>
+                <option value="faculty">Faculty</option>
+              </select>
               <input
                 className={`${inputClass}`}
                 value={userData.name}

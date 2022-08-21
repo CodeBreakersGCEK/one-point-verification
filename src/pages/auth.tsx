@@ -8,9 +8,9 @@ const Auth = () => {
     <Layout title="SignIn">
       <div className="flex items-center justify-center h-[80vh]">
         {isUser ? (
-          <UserForm setIsUser={setIsUser} />
+          <UserForm setIsUser={setIsUser} /> // AICTE users
         ) : (
-          <Form setIsUser={setIsUser} />
+          <Form setIsUser={setIsUser} /> // AICTE agent
         )}
       </div>
     </Layout>

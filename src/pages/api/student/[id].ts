@@ -1,7 +1,12 @@
 import StudentSchema from '../../../models/student';
 import connectMongo from '@utils/connectMongo';
 import bcrypt from 'bcryptjs';
-export default async function handler(req, res) {
+import { NextApiRequest, NextApiResponse } from 'next';
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const { method } = req;
   await connectMongo();
   const {

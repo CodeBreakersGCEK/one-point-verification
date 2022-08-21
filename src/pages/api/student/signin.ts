@@ -2,11 +2,14 @@ import connectMongo from '@utils/connectMongo';
 
 import StudentSchema from '../../../models/student';
 import bcrypt from 'bcryptjs';
-export default async function handler(req, res) {
+import { NextApiRequest, NextApiResponse } from 'next';
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   await connectMongo();
   const { method } = req;
   const { uid, password } = req.body;
-  //   console.log({ uid, password });
   switch (method) {
     case 'POST':
       try {
