@@ -1,11 +1,15 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
-
+import { useContext } from 'react';
+import AppContext from 'src/AppContext';
 const initialState = {
   password: '',
   id: '',
 };
 const Form = () => {
+  const { setUser, user } = useContext(AppContext);
+  console.log(user);
+
   const [userData, setUserData] = useState(initialState);
 
   const SubmitForm = (e: any) => {
@@ -17,11 +21,11 @@ const Form = () => {
   };
 
   const inputClass =
-    'border-2 border-sky-900 outline-none rounded-sm px-2 py-[3px]';
+    'border-2 border-sky-500 outline-none rounded-sm px-2 py-[3px] text-sky-800';
 
   return (
-    <div className="w-auto h-auto flex-col md:flex-row flex  rounded-lg p-2 my-4  border-2 border-sky-900">
-      <div className="flex-1 bg-sky-200 md:w-96 md:h-96 h-auto w-full flex items-center justify-center">
+    <div className="w-auto h-auto flex-col md:flex-row flex  rounded-lg p-2 my-4  border-2 border-sky-500">
+      <div className="flex-1 bg-sky-100 md:w-96 md:h-96 h-auto w-full flex items-center justify-center">
         <Image src="/images/login.png" alt="login" width={196} height={195} />
       </div>
 
@@ -30,7 +34,7 @@ const Form = () => {
         onSubmit={SubmitForm}
       >
         <div className="flex items-center justify-between mb-2">
-          <h4 className="text-center text-lg font-popins text-sky-900 font-bold">
+          <h4 className="text-center text-lg font-popins text-sky-500 font-bold">
             Login
           </h4>
         </div>
@@ -52,7 +56,7 @@ const Form = () => {
             setUserData({ ...userData, password: e.target.value })
           }
         />
-        <button className=" text-center bg-sky-900 text-white text-lg font-normal leading-6 rounded-3xl px-8 py-2 mt-5 scale-100 hover:scale-105 transition-transform border border-white duration-300 ease-linear">
+        <button className=" text-center bg-sky-500 text-white text-lg font-normal leading-6 rounded-3xl px-8 py-2 mt-5 scale-100 hover:scale-105 transition-transform border border-white duration-300 ease-linear">
           Login
         </button>
       </form>

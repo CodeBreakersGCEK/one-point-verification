@@ -23,6 +23,6 @@
       "@utils/*": ["./src/utils/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/index.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/index.js", "src/pages/api/student/index.js", "src/pages/api/student/[id].js"],
   "exclude": ["node_modules"]
 }

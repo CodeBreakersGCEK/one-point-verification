@@ -11,7 +11,7 @@ interface LayoutProps {
 
 const Layout: NextPage<LayoutProps> = ({ title, children }) => {
   return (
-    <div className="font-popins">
+    <div className="font-popins ">
       <Head>
         <title>{title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
