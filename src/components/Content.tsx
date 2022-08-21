@@ -49,9 +49,15 @@ const Content: NextPage = () => {
           <div className="font-semibold text-sky-900 lg:text-4xl md:text-3xl sm:text-2xl relative">
             {title}
             <div
-              className={`absolute ${reverse ? 'left' : 'right'}-0 top-0 -z-10`}
+              className={`absolute ${
+                reverse ? 'left' : 'right'
+              }-0 top-0 -z-10 opacity-80`}
             >
-              <Image src={backGround} height={150} width={150} alt={'bg'} />
+              <img
+                className="lg:w-36 md:w-28 w-16"
+                src={backGround}
+                alt={'bg'}
+              />
             </div>
           </div>
         </div>
