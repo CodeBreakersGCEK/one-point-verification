@@ -7,9 +7,9 @@ import AppContext from 'src/AppContext';
 import { useRouter } from 'next/router';
 const initialState = {
   password: '',
-  uid: '',
+  id: '',
 };
-const Form = ({ setIsUser, setData, data }: any) => {
+const Form = ({ setIsUser, setData }: any) => {
   const [userData, setUserData] = useState(initialState);
   const router = useRouter();
   const { setUser } = useContext(AppContext);
@@ -17,7 +17,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
     e.preventDefault();
     setUserData(userData);
 
-    const res = await axios.post('/api/student/signin', userData);
+    const res = await axios.post('/api/agent/signin', userData);
     if (res.data.status === 'success') {
       setData(res.data.data);
       setUser(res.data.data);
@@ -49,11 +49,11 @@ const Form = ({ setIsUser, setData, data }: any) => {
         <div className="flex flex-col justify-between gap-6 p-10 w-full">
           <input
             className={`${inputClass}`}
-            value={userData.uid}
-            type="number"
+            value={userData.id}
+            type="text"
             required
             placeholder="Unique Id"
-            onChange={(e) => setUserData({ ...userData, uid: e.target.value })}
+            onChange={(e) => setUserData({ ...userData, id: e.target.value })}
           />
           <input
             className={`${inputClass}`}

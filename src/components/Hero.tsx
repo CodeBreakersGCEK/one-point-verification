@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+
 import Image from 'next/image';
 import Lottie from 'lottie-react';
 import searchAnimation from '../../public/search_home.json';
@@ -8,7 +8,6 @@ import Link from 'next/link';
 import AppContext from 'src/AppContext';
 import { useContext } from 'react';
 const Hero = () => {
-  const router = useRouter();
   const { user } = useContext(AppContext);
   return (
     <div className="mb-10">

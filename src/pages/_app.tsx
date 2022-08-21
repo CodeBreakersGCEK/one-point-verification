@@ -4,7 +4,7 @@ import Context from '../AppContext';
 import { useState } from 'react';
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState({});
-  console.log(user);
+  // console.log(user);
 
   return (
     <Context.Provider value={{ user, setUser }}>
