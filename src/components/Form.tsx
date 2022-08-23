@@ -5,11 +5,13 @@ import axios from 'axios';
 import { useContext } from 'react';
 import AppContext from 'src/AppContext';
 import { useRouter } from 'next/router';
+import { useSnackbar } from 'notistack';
 const initialState = {
   password: '',
   id: '',
 };
 const Form = ({ setIsUser, setData }: any) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [userData, setUserData] = useState(initialState);
   const router = useRouter();
   const { setUser } = useContext(AppContext);
@@ -23,7 +25,14 @@ const Form = ({ setIsUser, setData }: any) => {
       setUser(res.data.data);
       router.push('/verify');
     } else {
-      window.alert(res.data.message);
+      enqueueSnackbar(res.data.message, {
+        variant: 'error',
+        autoHideDuration: 2000,
+        anchorOrigin: {
+          horizontal: 'right',
+          vertical: 'top',
+        },
+      });
     }
 
     setUserData(initialState);

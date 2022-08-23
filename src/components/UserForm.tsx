@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useContext } from 'react';
 import AppContext from 'src/AppContext';
 import { useRouter } from 'next/router';
+import { useSnackbar } from 'notistack';
 const initialState = {
   password: '',
   uid: '',
@@ -18,7 +19,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
   const [isRegister, setIsRegister] = useState(false);
   const [userData, setUserData] = useState(initialState);
   const [error, setError] = useState('');
-
+  const { enqueueSnackbar } = useSnackbar();
   const SubmitForm = async (e: any) => {
     e.preventDefault();
 
@@ -30,6 +31,14 @@ const Form = ({ setIsUser, setData, data }: any) => {
         router.push('/verify');
       } else {
         setError(res.data.message);
+        enqueueSnackbar(res.data.message, {
+          variant: 'error',
+          autoHideDuration: 2000,
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+        });
       }
     } else {
       const res = await axios.post('/api/student/signin', userData);
@@ -39,6 +48,14 @@ const Form = ({ setIsUser, setData, data }: any) => {
         router.push('/verify');
       } else {
         setError(res.data.message);
+        enqueueSnackbar(res.data.message, {
+          variant: 'error',
+          autoHideDuration: 2000,
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+        });
       }
     }
     setUserData(initialState);
@@ -94,11 +111,12 @@ const Form = ({ setIsUser, setData, data }: any) => {
                 className={`${inputClass}`}
                 value={userData.type}
                 required
+                defaultValue={'DEFAULT'}
                 onChange={(e) =>
                   setUserData({ ...userData, type: e.target.value })
                 }
               >
-                <option disabled selected value="">
+                <option disabled selected value="DEFAULT">
                   Select User Type
                 </option>
                 <option value="student">Student</option>
