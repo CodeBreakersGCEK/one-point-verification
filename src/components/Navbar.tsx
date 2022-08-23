@@ -37,11 +37,13 @@ const Navbar: NextPage<NavBarProps> = ({ type }) => {
         </div>
       </div>
       <div className="bg-green-400 px-4 py-2 rounded-r-lg flex items-center">
-        <h1 onClick={onClick}>
-          <a className="hidden sm:block cursor-pointer">
-            {Object.keys(user).length === 0 ? 'Login' : 'Logout'}
-          </a>
-        </h1>
+        {type !== 'auth' && (
+          <h1 onClick={onClick}>
+            <a className="hidden sm:block cursor-pointer">
+              {Object.keys(user).length === 0 ? 'Login' : 'Logout'}
+            </a>
+          </h1>
+        )}
         {isOpen ? (
           <HiX
             className="cursor-pointer sm:hidden"
@@ -57,11 +59,13 @@ const Navbar: NextPage<NavBarProps> = ({ type }) => {
           <div className="sm:hidden absolute left-0 top-12 mt-2 mr-2 p-4 bg-white border-2 rounded-lg flex flex-col gap-4 text-black text-xl font-normal w-full">
             <Link href="/about">About Us</Link>
             <Link href="/about">How it works?</Link>
-            <h1 onClick={onClick}>
-              <a className="bg-green-400 px-4 py-2 rounded-md text-white flex items-center justify-center">
-                {Object.keys(user).length === 0 ? 'Login' : 'Logout'}
-              </a>
-            </h1>
+            {type !== 'auth' && (
+              <h1 onClick={onClick}>
+                <a className="bg-green-400 px-4 py-2 rounded-md text-white flex items-center justify-center">
+                  {Object.keys(user).length === 0 ? 'Login' : 'Logout'}
+                </a>
+              </h1>
+            )}
           </div>
         )}
       </div>
