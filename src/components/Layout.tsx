@@ -19,7 +19,7 @@ const Layout: NextPage<LayoutProps> = ({ title, children, type }) => {
         <meta charSet="utf-8" />
       </Head>
       <Navbar type={type} />
-      <div className="px-2 h-full md:px-24">{children}</div>
+      <div className="px-2 md:h-full h-auto md:px-24">{children}</div>
       <Footer />
     </div>
   );

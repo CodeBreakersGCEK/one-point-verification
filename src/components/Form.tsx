@@ -37,7 +37,7 @@ const Form = ({ setIsUser, setData }: any) => {
         <Lottie animationData={authAnimation} />
       </div>
       <form
-        className="border flex flex-col justify-center items-center rounded-lg shadow-md flex-1 pb-8 bg-white w-96"
+        className="border flex flex-col justify-center items-center rounded-lg shadow-md flex-1 pb-8 bg-white w-[22rem] md:w-96"
         onSubmit={SubmitForm}
       >
         <div className="py-4 px-8 flex items-center justify-between shadow-md w-full">
