@@ -8,7 +8,7 @@ const Auth = () => {
 
   return (
     <Layout title="SignIn" type="auth">
-      <div className="flex items-center justify-center h-[80vh]">
+      <div className="flex items-center justify-center h-[80vh] overflow-y-auto">
         {isUser ? (
           <UserForm setIsUser={setIsUser} setData={setData} data={data} /> // AICTE users
         ) : (
