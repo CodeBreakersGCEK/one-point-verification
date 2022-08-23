@@ -6,10 +6,11 @@ import Navbar from './Navbar';
 
 interface LayoutProps {
   title: string;
+  type?: string;
   children: React.ReactNode;
 }
 
-const Layout: NextPage<LayoutProps> = ({ title, children }) => {
+const Layout: NextPage<LayoutProps> = ({ title, children, type }) => {
   return (
     <div className="font-popins ">
       <Head>
@@ -17,7 +18,7 @@ const Layout: NextPage<LayoutProps> = ({ title, children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
       </Head>
-      <Navbar />
+      <Navbar type={type} />
       <div className="px-2 h-full md:px-24">{children}</div>
       <Footer />
     </div>

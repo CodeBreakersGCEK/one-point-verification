@@ -62,6 +62,9 @@ const Verify = () => {
 
   const field = 'flex gap-3 items-center w-full';
 
+  const inputClass =
+    'border-2 outline-none rounded-lg px-4 py-2 w-full text-center';
+
   return (
     <Layout title="Verify">
       {data && isSubmit && showNotification()}
@@ -70,7 +73,7 @@ const Verify = () => {
           onSubmit={onSubmit}
           className="flex items-center h-full justify-center text-sky-900"
         >
-          <div className="md:px-7 px-2 md:py-10 py-4 md:w-[650px] w-full flex flex-col items-center justify-center gap-1 border-[3px] border-sky-800 rounded-lg ">
+          <div className="md:px-7 px-2 md:py-10 py-4 md:w-[650px] w-full flex flex-col items-center justify-center gap-4 border-2 border-sky-500 rounded-lg">
             <div className={field}>
               <label>
                 <Image
@@ -87,7 +90,7 @@ const Verify = () => {
                 placeholder="0000-0000-0000"
                 value={formValues.aadhar}
                 onChange={handleChange}
-                className="w-full text-center text-xl outline-none border-[1px] rounded-lg  border-sky-800"
+                className={`${inputClass}`}
               />
             </div>
 
@@ -102,7 +105,7 @@ const Verify = () => {
                 placeholder="AAAAA12345"
                 value={formValues.pan}
                 onChange={handleChange}
-                className="w-full text-center text-xl outline-none border-[1px] rounded-lg  border-sky-800 uppercase"
+                className={`${inputClass} uppercase`}
               />
             </div>
 
@@ -122,11 +125,10 @@ const Verify = () => {
                 required
                 value={formValues.account}
                 onChange={handleChange}
-                className="w-full text-center text-xl outline-none border-[1px] rounded-lg  border-sky-800"
+                className={`${inputClass}`}
               />
             </div>
-
-            <button className=" text-center bg-sky-900 text-white text-lg  font-normal leading-6 rounded-3xl   px-14 py-1 md:py-2 mt-5 scale-100 hover:scale-105 transition-transform   duration-300 ease-linear">
+            <button className="text-center bg-green-500 text-white text-xl text-md font-normal rounded-lg px-20 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear">
               {loading ? 'Loading...' : 'Verify'}
             </button>
           </div>

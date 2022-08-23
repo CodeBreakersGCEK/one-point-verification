@@ -17,6 +17,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
   const { setUser } = useContext(AppContext);
   const [isRegister, setIsRegister] = useState(false);
   const [userData, setUserData] = useState(initialState);
+  const [error, setError] = useState('');
 
   const SubmitForm = async (e: any) => {
     e.preventDefault();
@@ -28,7 +29,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
         setUser(res.data.data);
         router.push('/verify');
       } else {
-        window.alert(res.data.message);
+        setError(res.data.message);
       }
     } else {
       const res = await axios.post('/api/student/signin', userData);
@@ -37,10 +38,9 @@ const Form = ({ setIsUser, setData, data }: any) => {
         setUser(data);
         router.push('/verify');
       } else {
-        window.alert(res.data.message);
+        setError(res.data.message);
       }
     }
-
     setUserData(initialState);
   };
 

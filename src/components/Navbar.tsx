@@ -5,10 +5,15 @@ import { HiMenu, HiX } from 'react-icons/hi';
 import { useContext } from 'react';
 import AppContext from 'src/AppContext';
 import { useRouter } from 'next/router';
-const Navbar: NextPage = () => {
+interface NavBarProps {
+  type?: string;
+}
+
+const Navbar: NextPage<NavBarProps> = ({ type }) => {
   const router = useRouter();
   const { user, setUser } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
+
   const onClick = () => {
     if (Object.keys(user).length === 0) {
       router.push('/auth');
@@ -17,6 +22,7 @@ const Navbar: NextPage = () => {
       router.push('/auth');
     }
   };
+
   return (
     <nav className="text-2xl text-white font-medium flex m-3 sticky top-3 z-10 shadow-lg">
       <div className="bg-sky-500 flex-1 px-4 py-2 rounded-l-lg flex justify-between items-center">

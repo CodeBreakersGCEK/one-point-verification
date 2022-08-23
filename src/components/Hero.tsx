@@ -33,7 +33,7 @@ const Hero = () => {
           <Lottie animationData={searchAnimation} />
         </div>
       </div>
-      <div className="lg:mt-60 md:mt-40 mt-20">
+      <div className="lg:mt-52 md:mt-40 mt-20">
         <Lottie
           animationData={scrollAnimation}
           style={{

@@ -7,7 +7,7 @@ const Auth = () => {
   const [data, setData] = useState({});
 
   return (
-    <Layout title="SignIn">
+    <Layout title="SignIn" type="auth">
       <div className="flex items-center justify-center h-[80vh]">
         {isUser ? (
           <UserForm setIsUser={setIsUser} setData={setData} data={data} /> // AICTE users
