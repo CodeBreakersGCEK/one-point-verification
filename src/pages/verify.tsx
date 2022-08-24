@@ -73,7 +73,7 @@ const Verify = () => {
           onSubmit={onSubmit}
           className="flex items-center h-full justify-center text-sky-900"
         >
-          <div className="md:px-7 px-2 md:py-10 py-4 md:w-[650px] w-full flex flex-col items-center justify-center gap-4 border-2 border-sky-500 rounded-lg">
+          <div className="md:px-7 px-2 md:py-10 py-4 md:w-[650px] w-full flex flex-col items-center justify-center gap-4 border-2 border-sky-500 rounded-lg shadow-md">
             <div className={field}>
               <label>
                 <Image

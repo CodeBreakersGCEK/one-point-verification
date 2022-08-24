@@ -13,16 +13,19 @@ const initialState = {
 const Form = ({ setIsUser, setData }: any) => {
   const { enqueueSnackbar } = useSnackbar();
   const [userData, setUserData] = useState(initialState);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { setUser } = useContext(AppContext);
   const SubmitForm = async (e: any) => {
     e.preventDefault();
     setUserData(userData);
+    setLoading(true);
 
     const res = await axios.post('/api/agent/signin', userData);
     if (res.data.status === 'success') {
       setData(res.data.data);
       setUser(res.data.data);
+      setLoading(false);
       router.push('/verify');
     } else {
       enqueueSnackbar(res.data.message, {
@@ -75,7 +78,7 @@ const Form = ({ setIsUser, setData }: any) => {
             }
           />
           <button className="text-center bg-sky-500 text-white text-xl text-md font-normal rounded-lg px-20 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear">
-            Login
+            {loading ? 'Loading...' : 'Login'}
           </button>
         </div>
         <p className="text-neutral-400 font-medium">
