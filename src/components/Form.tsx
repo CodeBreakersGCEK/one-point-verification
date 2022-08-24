@@ -6,16 +6,19 @@ import { useContext } from 'react';
 import AppContext from 'src/AppContext';
 import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
+
 const initialState = {
   password: '',
   id: '',
 };
+
 const Form = ({ setIsUser, setData }: any) => {
   const { enqueueSnackbar } = useSnackbar();
-  const [userData, setUserData] = useState(initialState);
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { setUser } = useContext(AppContext);
+  const [userData, setUserData] = useState(initialState);
+  const [loading, setLoading] = useState(false);
+
   const SubmitForm = async (e: any) => {
     e.preventDefault();
     setUserData(userData);

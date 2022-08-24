@@ -1,10 +1,16 @@
 import Layout from '@components/Layout';
-import React from 'react';
+import Lottie from 'lottie-react';
+import teamAnimation from '../../public/team_about.json';
 
 const about = () => {
   return (
     <Layout title="About">
-      <div>Hello About page</div>
+      <div className="flex flex-col-reverse md:flex-row items-center justify-between h-full">
+        <div className="flex-1">Hello About page</div>
+        <div className="flex-1">
+          <Lottie animationData={teamAnimation} />
+        </div>
+      </div>
     </Layout>
   );
 };

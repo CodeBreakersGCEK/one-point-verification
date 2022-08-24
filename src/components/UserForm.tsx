@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import AppContext from 'src/AppContext';
 import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
+
 const initialState = {
   password: '',
   uid: '',
@@ -13,24 +14,27 @@ const initialState = {
   email: '',
   type: '',
 };
+
 const Form = ({ setIsUser, setData, data }: any) => {
   const router = useRouter();
   const { setUser } = useContext(AppContext);
   const [isRegister, setIsRegister] = useState(false);
   const [userData, setUserData] = useState(initialState);
-  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const { enqueueSnackbar } = useSnackbar();
   const SubmitForm = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
 
     if (isRegister) {
       const res = await axios.post('/api/student/signup', userData);
       if (res.data.status === 'success') {
         setData(res.data.data);
         setUser(res.data.data);
+        setLoading(false);
         router.push('/verify');
       } else {
-        setError(res.data.message);
         enqueueSnackbar(res.data.message, {
           variant: 'error',
           autoHideDuration: 2000,
@@ -45,9 +49,9 @@ const Form = ({ setIsUser, setData, data }: any) => {
       if (res.data.status === 'success') {
         setData(res.data.data);
         setUser(data);
+        setLoading(false);
         router.push('/verify');
       } else {
-        setError(res.data.message);
         enqueueSnackbar(res.data.message, {
           variant: 'error',
           autoHideDuration: 2000,
@@ -85,7 +89,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
             }`}
             onClick={() => setIsRegister(true)}
           >
-            Register
+            {loading ? 'Loading...' : 'Register'}
           </a>
           <a
             className={`text-neutral-500 cursor-pointer border-b-2 ${
@@ -93,7 +97,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
             }`}
             onClick={() => setIsRegister(false)}
           >
-            Login
+            {loading ? 'Loading...' : 'Login'}
           </a>
         </div>
         <div className="flex flex-col justify-between gap-6 p-10 w-full">

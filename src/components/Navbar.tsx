@@ -19,7 +19,7 @@ const Navbar: NextPage<NavBarProps> = ({ type }) => {
       router.push('/auth');
     } else {
       setUser({});
-      router.push('/auth');
+      router.push('/');
     }
   };
 

@@ -73,7 +73,7 @@ const Verify = () => {
           onSubmit={onSubmit}
           className="flex items-center h-full justify-center text-sky-900"
         >
-          <div className="md:px-7 px-2 md:py-10 py-4 md:w-[650px] w-full flex flex-col items-center justify-center gap-4 border-2 border-sky-500 rounded-lg shadow-md">
+          <div className="md:px-7 px-2 md:py-10 py-4 md:w-[650px] w-full flex flex-col items-center justify-center gap-4 border-2 rounded-lg shadow-md">
             <div className={field}>
               <label>
                 <Image
@@ -87,7 +87,7 @@ const Verify = () => {
                 type="number"
                 name="aadhar"
                 required
-                placeholder="0000-0000-0000"
+                placeholder="1234-6789-5432"
                 value={formValues.aadhar}
                 onChange={handleChange}
                 className={`${inputClass}`}
@@ -102,7 +102,7 @@ const Verify = () => {
                 type="text"
                 name="pan"
                 required
-                placeholder="AAAAA12345"
+                placeholder="ASDF12345Z"
                 value={formValues.pan}
                 onChange={handleChange}
                 className={`${inputClass} uppercase`}
