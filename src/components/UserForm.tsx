@@ -19,12 +19,15 @@ const Form = ({ setIsUser, setData, data }: any) => {
   const [isRegister, setIsRegister] = useState(false);
   const [userData, setUserData] = useState(initialState);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const SubmitForm = async (e: any) => {
     e.preventDefault();
 
     if (isRegister) {
+      setLoading(true);
       const res = await axios.post('/api/student/signup', userData);
+      setLoading(false);
       if (res.data.status === 'success') {
         setData(res.data.data);
         setUser(res.data.data);
@@ -41,10 +44,14 @@ const Form = ({ setIsUser, setData, data }: any) => {
         });
       }
     } else {
+      setLoading(true);
       const res = await axios.post('/api/student/signin', userData);
+      setLoading(false);
       if (res.data.status === 'success') {
+        console.log(res.data);
+
         setData(res.data.data);
-        setUser(data);
+
         router.push('/verify');
       } else {
         setError(res.data.message);
@@ -60,7 +67,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
     }
     setUserData(initialState);
   };
-
+  setUser(data);
   const inputClass = 'border-2 outline-none rounded-lg px-4 py-2';
 
   return (
@@ -111,12 +118,12 @@ const Form = ({ setIsUser, setData, data }: any) => {
                 className={`${inputClass}`}
                 value={userData.type}
                 required
-                defaultValue={'DEFAULT'}
+                defaultValue={''}
                 onChange={(e) =>
                   setUserData({ ...userData, type: e.target.value })
                 }
               >
-                <option disabled selected value="DEFAULT">
+                <option disabled selected value={''}>
                   Select User Type
                 </option>
                 <option value="student">Student</option>
@@ -154,7 +161,13 @@ const Form = ({ setIsUser, setData, data }: any) => {
             }
           />
           <button className="text-center bg-sky-500 text-white text-xl text-md font-normal rounded-lg px-20 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear">
-            {isRegister ? 'Register' : 'Login'}
+            {isRegister
+              ? loading
+                ? 'Looading...'
+                : 'Register'
+              : loading
+              ? 'Looading...'
+              : 'Login'}
           </button>
         </div>
         <p className="text-neutral-400 font-medium">

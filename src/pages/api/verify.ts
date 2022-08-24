@@ -17,12 +17,10 @@ export default async function handler(
     try {
       const user = await VerifyModel.findOne({ uid: aadhar });
       if (user) {
-        res
-          .status(200)
-          .json({
-            message: 'This aadhar is already verified with BrainChuck',
-            status: 'success',
-          });
+        res.status(200).json({
+          message: `${aadhar} is already verified with PAN ${user.pan} BANK:${user.bankAccount}  `,
+          status: 'success',
+        });
         return;
       }
       const uidData = await AadharSchema.findOne({ uid: aadhar });
