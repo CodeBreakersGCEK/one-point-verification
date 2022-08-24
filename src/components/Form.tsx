@@ -31,6 +31,7 @@ const Form = ({ setIsUser, setData }: any) => {
       setLoading(false);
       router.push('/verify');
     } else {
+      setLoading(false);
       enqueueSnackbar(res.data.message, {
         variant: 'error',
         autoHideDuration: 2000,

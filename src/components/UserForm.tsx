@@ -35,6 +35,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
         setLoading(false);
         router.push('/verify');
       } else {
+        setLoading(false);
         enqueueSnackbar(res.data.message, {
           variant: 'error',
           autoHideDuration: 2000,
@@ -52,6 +53,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
         setLoading(false);
         router.push('/verify');
       } else {
+        setLoading(false);
         enqueueSnackbar(res.data.message, {
           variant: 'error',
           autoHideDuration: 2000,
