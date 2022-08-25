@@ -56,7 +56,7 @@ export default async function handler(
         //  Check Verificaion
 
         if (panData.aadharNumber === uid && BankData.aadharNumber == uid) {
-          const newUser = new VerifyModel(req.body);
+          const newUser = new VerifyModel({ ...req.body, verified: true });
           await newUser.save();
           res
             .status(200)
