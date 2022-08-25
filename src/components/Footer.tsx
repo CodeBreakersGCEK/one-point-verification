@@ -13,7 +13,7 @@ const Footer: NextPage = () => {
         </Link>
         <div className="text-base flex gap-3 font-normal">
           <Link href="/about">About Us</Link>
-          <Link href="/about">How it works?</Link>
+          <Link href="/how-it-works">How it works?</Link>
         </div>
       </div>
       <p>© 2022 | BrainChuck</p>

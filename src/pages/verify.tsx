@@ -55,9 +55,15 @@ const Verify = () => {
     });
     setIsSubmit(false);
   };
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+    if (name === 'aadhar' && value.length <= 12)
+      setFormValues({ ...formValues, [name]: value });
+    else if (name === 'pan' && value.length <= 10)
+      setFormValues({ ...formValues, [name]: value });
+    else if (name === 'account' && value.length <= 18)
+      setFormValues({ ...formValues, [name]: value });
   };
 
   const field = 'flex gap-3 items-center w-full';
@@ -66,7 +72,7 @@ const Verify = () => {
     'border-2 outline-none rounded-lg px-4 py-2 w-full text-center';
 
   return (
-    <Layout title="Verify">
+    <Layout title="OneVerify | Verify">
       {data && isSubmit && showNotification()}
       <div className="h-[80vh]">
         <form
@@ -87,6 +93,7 @@ const Verify = () => {
                 type="number"
                 name="aadhar"
                 required
+                maxLength={12}
                 placeholder="1234-6789-5432"
                 value={formValues.aadhar}
                 onChange={handleChange}

@@ -3,7 +3,7 @@ import { Content, Hero, Layout } from '../components';
 
 const Home: NextPage = () => {
   return (
-    <Layout title="Home">
+    <Layout title="OneVerify | Home">
       <Hero />
       <Content />
     </Layout>
