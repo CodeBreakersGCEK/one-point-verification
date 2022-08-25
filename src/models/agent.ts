@@ -12,7 +12,6 @@ const agentSchema = new Schema({
   },
   collegeCode: {
     type: String,
-    required: true,
   },
 });
 

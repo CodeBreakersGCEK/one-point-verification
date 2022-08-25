@@ -21,7 +21,7 @@ export default async function handler(
         if (user) {
           res.status(200).json({
             message: `${uid} number is already verified with BankAcc ${user.bankAccount} and pan ${user.pan}`,
-            status: 'success',
+            status: 'error',
           });
           return;
         }

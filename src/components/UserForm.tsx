@@ -33,7 +33,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
         setData(res.data.data);
         setUser(res.data.data);
         setLoading(false);
-        router.push('/verify');
+        router.push('/registration');
       } else {
         setLoading(false);
         enqueueSnackbar(res.data.message, {
@@ -51,7 +51,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
         setData(res.data.data);
         setUser(data);
         setLoading(false);
-        router.push('/verify');
+        router.push('/registration');
       } else {
         setLoading(false);
         enqueueSnackbar(res.data.message, {
@@ -91,7 +91,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
             }`}
             onClick={() => setIsRegister(true)}
           >
-            {loading ? 'Loading...' : 'Register'}
+            Register
           </a>
           <a
             className={`text-neutral-500 cursor-pointer border-b-2 ${
@@ -99,7 +99,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
             }`}
             onClick={() => setIsRegister(false)}
           >
-            {loading ? 'Loading...' : 'Login'}
+            Login
           </a>
         </div>
         <div className="flex flex-col justify-between gap-6 p-10 w-full">
@@ -169,7 +169,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
             className="text-green-500 cursor-pointer"
             onClick={() => setIsUser(false)}
           >
-            AICTE agent
+            AICTE/College agent
           </span>
           ?
         </p>

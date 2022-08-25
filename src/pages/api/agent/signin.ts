@@ -10,7 +10,6 @@ export default async function handler(
   await connectMongo();
   const { method } = req;
   const { id, password } = req.body;
-  // console.log(uid);
 
   switch (method) {
     case 'POST':
