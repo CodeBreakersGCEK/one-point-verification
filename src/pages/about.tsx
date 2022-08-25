@@ -7,7 +7,7 @@ const about = () => {
     <Layout title="OneVerify | About">
       <div className="flex flex-col-reverse lg:flex-row items-center justify-between px-4 py-8 gap-2 lg:gap-16">
         <div className="flex-1 text-sky-900 p-4 flex flex-col gap-10">
-          <h1 className="text-4xl font-medium">About US</h1>
+          <h1 className="text-4xl font-medium">About Us</h1>
           <div className="leading-8 tracking-wide flex flex-col gap-8">
             We are a team of students, working together to develop solutions
             that are widely loved by individuals and industries. We believe that
