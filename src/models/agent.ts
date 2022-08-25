@@ -10,6 +10,10 @@ const agentSchema = new Schema({
     type: String,
     required: true,
   },
+  collegeCode: {
+    type: String,
+    required: true,
+  },
 });
 
 const AgentSchema = models.Agent || model('Agent', agentSchema);
