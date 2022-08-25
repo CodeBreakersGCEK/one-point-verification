@@ -31,6 +31,43 @@ const Verify = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const inputFileRef = React.useRef<HTMLInputElement | null>(null);
+
+  const handleOnClick = async (e: React.MouseEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    if (!inputFileRef.current?.files?.length) {
+      alert('Please, select file you want to upload');
+      return;
+    }
+
+    setIsLoading(true);
+
+    const formData = new FormData();
+    Object.values(inputFileRef.current.files).forEach((file) => {
+      formData.append('file', file);
+    });
+
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const body = (await response.json()) as {
+      status: 'ok' | 'fail';
+      message: string;
+    };
+
+    alert(body.message);
+
+    if (body.status === 'ok') {
+      inputFileRef.current.value = '';
+    }
+
+    setIsLoading(false);
+  };
+
   const onSubmit = async (e: any) => {
     setLoading(true);
     e.preventDefault();
@@ -58,11 +95,11 @@ const Verify = () => {
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    if (name === 'aadhar' && value.length <= 12)
+    if (name === 'uid' && value.length <= 12)
       setFormValues({ ...formValues, [name]: value });
     else if (name === 'pan' && value.length <= 10)
       setFormValues({ ...formValues, [name]: value });
-    else if (name === 'account' && value.length <= 18)
+    else if (name === 'bankAccount' && value.length <= 18)
       setFormValues({ ...formValues, [name]: value });
   };
 
@@ -75,6 +112,13 @@ const Verify = () => {
     <Layout title="OneVerify | Verify" type="verify">
       {data && isSubmit && showNotification()}
       <div className="h-[80vh] bg-slate-100">
+        {/* <input type="file" name="myfile" ref={inputFileRef} />
+        <input
+          type="submit"
+          value="Upload"
+          disabled={isLoading}
+          onClick={handleOnClick}
+        /> */}
         <form
           onSubmit={onSubmit}
           className="flex items-center h-full justify-center text-sky-900"
@@ -91,7 +135,7 @@ const Verify = () => {
               </label>
               <input
                 type="number"
-                name="aadhar"
+                name="uid"
                 required
                 maxLength={12}
                 placeholder="1234-6789-5432"
@@ -127,7 +171,7 @@ const Verify = () => {
               </label>
               <input
                 type="number"
-                name="account"
+                name="bankAccount"
                 placeholder="123456789"
                 required
                 value={formValues.bankAccount}
