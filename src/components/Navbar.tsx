@@ -33,7 +33,7 @@ const Navbar: NextPage<NavBarProps> = ({ type }) => {
         </Link>
         <div className="text-base sm:flex gap-3 font-normal hidden">
           <Link href="/about">About Us</Link>
-          <Link href="/about">How it works?</Link>
+          <Link href="/how-it-works">How it works?</Link>
         </div>
       </div>
       <div className="bg-green-400 px-4 py-2 rounded-r-lg flex items-center">
@@ -58,7 +58,7 @@ const Navbar: NextPage<NavBarProps> = ({ type }) => {
         {isOpen && (
           <div className="sm:hidden absolute left-0 top-12 mt-2 mr-2 p-4 bg-white border-2 rounded-lg flex flex-col gap-4 text-black text-xl font-normal w-full">
             <Link href="/about">About Us</Link>
-            <Link href="/about">How it works?</Link>
+            <Link href="/how-it-works">How it works?</Link>
             {type !== 'auth' && (
               <h1 onClick={onClick}>
                 <a className="bg-green-400 px-4 py-2 rounded-md text-white flex items-center justify-center">

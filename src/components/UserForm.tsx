@@ -108,7 +108,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
             value={userData.uid}
             type="number"
             required
-            placeholder="Unique Id / AADHAR No."
+            placeholder="Unique Id / AADHAAR No."
             onChange={(e) => setUserData({ ...userData, uid: e.target.value })}
           />
           {isRegister && (

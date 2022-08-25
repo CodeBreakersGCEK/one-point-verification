@@ -12,7 +12,11 @@ interface LayoutProps {
 
 const Layout: NextPage<LayoutProps> = ({ title, children, type }) => {
   return (
-    <div className="font-popins h-screen grid myRow">
+    <div
+      className={`font-popins h-screen grid myRow ${
+        type === 'verify' ? 'bg-slate-100' : 'bg-white'
+      }`}
+    >
       <Head>
         <title>{title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

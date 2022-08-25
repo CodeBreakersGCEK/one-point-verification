@@ -6,7 +6,7 @@ const Auth = () => {
   const [data, setData] = useState({});
 
   return (
-    <Layout title="SignIn" type="auth">
+    <Layout title="OneVerify | Authentication" type="auth">
       <div className="flex items-center justify-center min-h-[80vh]">
         {isUser ? (
           <UserForm setIsUser={setIsUser} setData={setData} data={data} /> // AICTE users
