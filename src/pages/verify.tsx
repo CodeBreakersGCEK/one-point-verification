@@ -31,7 +31,7 @@ const Verify = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const inputFileRef = React.useRef<HTMLInputElement | null>(null);
 
   const handleOnClick = async (e: React.MouseEvent<HTMLInputElement>) => {
