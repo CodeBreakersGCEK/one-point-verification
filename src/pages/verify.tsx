@@ -7,15 +7,15 @@ import AppContext from 'src/AppContext';
 import { useContext } from 'react';
 import { useRouter } from 'next/router';
 interface FormValues {
-  aadhar: string;
+  uid: string;
   pan: string;
-  account: string;
+  bankAccount: string;
 }
 
 const initialValues = {
-  aadhar: '',
+  uid: '',
   pan: '',
-  account: '',
+  bankAccount: '',
 };
 
 const Verify = () => {
@@ -88,7 +88,7 @@ const Verify = () => {
                 name="aadhar"
                 required
                 placeholder="1234-6789-5432"
-                value={formValues.aadhar}
+                value={formValues.uid}
                 onChange={handleChange}
                 className={`${inputClass}`}
               />
@@ -123,7 +123,7 @@ const Verify = () => {
                 name="account"
                 placeholder="123456789"
                 required
-                value={formValues.account}
+                value={formValues.bankAccount}
                 onChange={handleChange}
                 className={`${inputClass}`}
               />
