@@ -1,6 +1,6 @@
 import { Schema, model, models } from 'mongoose';
 
-const studentDetailsSchema = new Schema({
+const studentVerifiedSchema = new Schema({
   uid: {
     type: String,
     required: true,
@@ -54,7 +54,7 @@ const studentDetailsSchema = new Schema({
   },
 });
 
-const StudentDetailsSchema =
-  models.StudentDetails || model('StudentDetails', studentDetailsSchema);
+const StudentVerifiedSchema =
+  models.aicte || model('aicte', studentVerifiedSchema);
 
-export default StudentDetailsSchema;
+export default StudentVerifiedSchema;
