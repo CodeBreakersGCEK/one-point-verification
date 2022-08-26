@@ -10,7 +10,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { method } = req.query;
+  const { method } = req;
   const { number } = req.body;
 
   const OTP = otpGenerator.generate(6, {
@@ -18,9 +18,12 @@ export default async function handler(
     specialChars: false,
   });
 
+  console.log(OTP, number);
+
   switch (method) {
     case 'POST':
       try {
+        console.log('first');
         client.messages
           .create({
             from: '+12676828717',

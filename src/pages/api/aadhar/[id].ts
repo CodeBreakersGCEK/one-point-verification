@@ -1,9 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import AadharSchema from "src/models/aadhar";
-import connectMongo from "@utils/connectMongo";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import AadharSchema from 'src/models/aadhar';
+import connectMongo from '@utils/connectMongo';
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const { method } = req;
   await connectMongo();
@@ -12,27 +12,27 @@ export default async function handler(
   } = req;
 
   switch (method) {
-    case "GET":
+    case 'GET':
       try {
-        const data = await AadharSchema.findById(id);
+        const data = await AadharSchema.findOne({ uid: id });
         if (!data) {
-          res.status(404).json({ message: "AADHAR IS NOT EXIST" });
+          res.status(404).json({ message: 'AADHAR IS NOT EXIST' });
         }
         res.status(200).json(data);
       } catch (error) {
         res.status(404).json(error);
       }
       break;
-    case "PUT":
+    case 'PUT':
       try {
         const aadhar = await AadharSchema.findById(id);
         if (!aadhar) {
-          res.status(404).json({ message: "Aadhar not found" });
+          res.status(404).json({ message: 'Aadhar not found' });
         }
         const updatedAadhar = AadharSchema.findByIdAndUpdate(
           id,
           { $set: req.body },
-          { new: true }
+          { new: true },
         );
 
         res.status(200).json(updatedAadhar);
@@ -41,14 +41,14 @@ export default async function handler(
       }
 
       break;
-    case "DELETE":
+    case 'DELETE':
       try {
         const aadhar = await AadharSchema.findById(id);
         if (!aadhar) {
-          res.status(404).json({ message: "Aadhar not found" });
+          res.status(404).json({ message: 'Aadhar not found' });
         }
         await AadharSchema.findByIdAndDelete(id);
-        res.status(200).json({ message: "Aadhar deleted" });
+        res.status(200).json({ message: 'Aadhar deleted' });
       } catch (error) {
         res.status(500).json(error);
       }

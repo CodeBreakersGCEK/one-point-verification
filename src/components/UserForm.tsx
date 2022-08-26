@@ -86,7 +86,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
   };
   const getNumber = async () => {
     const res = await axios.get(`/api/aadhar/${userData.uid}`);
-    setNumber(res.data.phone);
+    setNumber(`+91${res.data.phone}`);
   };
 
   return (
@@ -131,7 +131,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
               required
               placeholder="AADHAR."
               onChange={(e) =>
-                setUserData({ ...userData, otp: e.target.value })
+                setUserData({ ...userData, uid: e.target.value })
               }
             />
             {isRegister && (
@@ -152,7 +152,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
               required
               placeholder="OTP"
               onChange={(e) =>
-                setUserData({ ...userData, uid: e.target.value })
+                setUserData({ ...userData, otp: e.target.value })
               }
             />
             {isRegister && (
