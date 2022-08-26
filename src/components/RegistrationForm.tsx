@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';

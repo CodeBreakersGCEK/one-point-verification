@@ -12,6 +12,7 @@ export interface UID {
   district: string;
   state: string;
   pincode: string;
+  photo: string;
 }
 
 export interface NPCI {
