@@ -56,27 +56,30 @@ const Form = () => {
     setIsVerifying('Verifying...');
     const resUid = await axios.get(`/api/aadhar/${formData.uid}`);
 
-   const res=await axios.post('http://127.0.0.1:8080/face-auth',{userurl:image,aadharurl:resUid.data.photo});
-   if (res.data.matched === 'true') {
-    Swal.fire({
-      title: 'Success',
-      text: 'Image Matched',
-      icon: 'success',
-      confirmButtonText: 'OKAY',
-    });
-    setIsVerified(true);
-    setIsVerifying('Verified');
-  }
-  else {
-    setIsVerifying('Verify');
-    Swal.fire({
-      title: 'Error',
-      text: 'Not Matched',
-      icon: 'error',
-      confirmButtonText: 'OKAY',
-    });
-  }
-    
+    const res = await axios.post('http://127.0.0.1:8080/face-auth', { userurl: image, aadharurl: resUid.data.photo });
+    console.log(res);
+    if (res.data.matched === true) {
+      Swal.fire({
+        title: 'Success',
+        text: 'Image Matched',
+        icon: 'success',
+        confirmButtonText: 'OKAY',
+      });
+      setIsVerified(true);
+      setIsVerifying('Verified');
+    }
+    else {
+      setIsVerifying('Verify');
+      Swal.fire({
+        title: 'Error',
+        text: 'Not Matched',
+        icon: 'error',
+        confirmButtonText: 'OKAY',
+      });
+    return;
+
+    }
+
     const response = await axios.post('/api/verify', {
       uid: formData.uid,
       pan: formData.pan,
@@ -91,8 +94,8 @@ const Form = () => {
         icon: 'success',
         confirmButtonText: 'OKAY',
       });
-      setIsVerified(true);
-      setIsVerifying('Verified');
+      // setIsVerified(true);
+      // setIsVerifying('Verified');
 
       // setData(response.data);
       // setLoading(false);
@@ -160,17 +163,15 @@ const Form = () => {
         </div>
         <div className="flex gap-36 justify-between pt-4  mb-2">
           <a
-            className={`text-neutral-500 cursor-pointer border-b-2 ${
-              isStudent ? 'border-sky-500' : 'border-transparent'
-            }`}
+            className={`text-neutral-500 cursor-pointer border-b-2 ${isStudent ? 'border-sky-500' : 'border-transparent'
+              }`}
             onClick={() => setIsStudent(true)}
           >
             Student
           </a>
           <a
-            className={`text-neutral-500 cursor-pointer border-b-2 ${
-              !isStudent ? 'border-sky-500' : 'border-transparent'
-            }`}
+            className={`text-neutral-500 cursor-pointer border-b-2 ${!isStudent ? 'border-sky-500' : 'border-transparent'
+              }`}
             onClick={() => setIsStudent(false)}
           >
             Faculty
@@ -266,53 +267,57 @@ const Form = () => {
               className={`${inputClass}`}
             />
           </div>
-          {/* <WebcamCapture /> */}
-          {!imgSrc && (
-            <Webcam
-              audio={false}
-              ref={webcamRef}
-              screenshotFormat="image/jpeg"
-            />
-          )}
-          {imgSrc && <img src={imgSrc} />}
-          <div className="flex justify-between w-full p-2">
-            <button
-              disabled={isCaptured}
-              className="cursor-pointer bg-sky-500 text-sm font-medium rounded-md hover:bg-sky-700 text-center uppercase transition-all ease-linear text-white p-2 duration-75 disabled:bg-neutral-400 disabled:cursor-no-drop"
-              onClick={() => {
-                capture();
-                setIsCaptured(true);
-              }}
-            >
-              Capture
-            </button>
-            <button
-              disabled={!isCaptured}
-              className="cursor-pointer bg-green-500 text-sm font-medium rounded-md hover:bg-green-700 text-center uppercase transition-all ease-linear text-white p-2 duration-75 disabled:bg-neutral-400 disabled:cursor-no-drop"
-              onClick={submitImage}
-            >
-              {isUploaded ? 'Uploaded' : 'Upload'}
-            </button>
-            <button
-              disabled={!isCaptured}
-              className="cursor-pointer bg-red-500 text-sm font-medium rounded-md hover:bg-red-700 text-center uppercase transition-all ease-linear text-white p-2 duration-75 disabled:bg-neutral-400 disabled:cursor-no-drop"
-              onClick={() => {
-                setImgSrc(null);
-                setIsCaptured(false);
-              }}
-              color="red"
-            >
-              Reset
-            </button>
-          </div>
           <button
-            disabled={isVerified}
-            className="cursor-pointer w-full bg-green-500 font-semibold rounded-md hover:bg-green-700 text-center uppercase transition-all ease-linear text-white px-2 py-3 duration-75 disabled:bg-neutral-400 disabled:cursor-no-drop"
-          >
-            {isVerifying}
-          </button>
+          disabled={isVerified}
+          className="cursor-pointer w-full bg-green-500 font-semibold rounded-md hover:bg-green-700 text-center uppercase transition-all ease-linear text-white px-2 py-3 duration-75 disabled:bg-neutral-400 disabled:cursor-no-drop"
+        >
+          {isVerifying}
+        </button>
         </div>
       </form>
+      <div>
+        {/* <WebcamCapture /> */}
+        {!imgSrc && (
+          <Webcam
+            audio={false}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+          />
+        )}
+        {imgSrc && <img src={imgSrc} />}
+        <div className="flex justify-between w-full p-2">
+          <button
+            disabled={isCaptured}
+            className="cursor-pointer bg-sky-500 text-sm font-medium rounded-md hover:bg-sky-700 text-center uppercase transition-all ease-linear text-white p-2 duration-75 disabled:bg-neutral-400 disabled:cursor-no-drop"
+            onClick={() => {
+              capture();
+              setIsCaptured(true);
+            }}
+          >
+            Capture
+          </button>
+          <button
+            disabled={!isCaptured}
+            className="cursor-pointer bg-green-500 text-sm font-medium rounded-md hover:bg-green-700 text-center uppercase transition-all ease-linear text-white p-2 duration-75 disabled:bg-neutral-400 disabled:cursor-no-drop"
+            onClick={submitImage}
+          >
+            {isUploaded ? 'Uploaded' : 'Upload'}
+          </button>
+          <button
+            disabled={!isCaptured}
+            className="cursor-pointer bg-red-500 text-sm font-medium rounded-md hover:bg-red-700 text-center uppercase transition-all ease-linear text-white p-2 duration-75 disabled:bg-neutral-400 disabled:cursor-no-drop"
+            onClick={() => {
+              setImgSrc(null);
+              setIsCaptured(false);
+            }}
+            color="red"
+          >
+            Reset
+          </button>
+        </div>
+        
+      </div>
+
     </div>
   );
 };
