@@ -49,7 +49,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
       const res = await axios.post('/api/student/signin', userData);
       if (res.data.status === 'success') {
         setData(res.data.data);
-        setUser(data);
+        setUser(res.data.data);
         setLoading(false);
         router.push('/registration');
       } else {
@@ -117,12 +117,12 @@ const Form = ({ setIsUser, setData, data }: any) => {
                 className={`${inputClass}`}
                 value={userData.type}
                 required
-                defaultValue={'DEFAULT'}
+                defaultValue={''}
                 onChange={(e) =>
                   setUserData({ ...userData, type: e.target.value })
                 }
               >
-                <option disabled selected value="DEFAULT">
+                <option disabled selected value="">
                   Select User Type
                 </option>
                 <option value="student">Student</option>

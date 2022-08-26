@@ -1,30 +1,31 @@
 import Layout from '@components/Layout';
+import AicteTable from '@components/AicteTable';
+
+import axios from 'axios';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { Verify } from 'src/types/data';
 
 const VerifiedUsers: NextPage = () => {
   const [users, setUsers] = useState<Verify[]>([]);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     getUsers();
   }, []);
 
   const getUsers = async () => {
-    const res = await fetch('http://localhost:3000/api/users');
-    const data = await res.json();
-    setUsers(data);
+    setLoading(true);
+    const res = await axios.get('http://localhost:3000/api/aicte');
+    console.log(res);
+    setUsers(res.data.data);
+    setLoading(false);
   };
 
   return (
     <Layout title="Verified Users">
-      {users.map((user) => (
-        <div key={user.uid}>
-          <h2>{user.uid}</h2>
-          <h2>{user.pan}</h2>
-          <h2>{user.bankAccount}</h2>
-        </div>
-      ))}
+      <div className="w-full flex items-center justify-center my-8">
+        {loading ? 'Loading...' : <AicteTable users={users} />}
+      </div>
     </Layout>
   );
 };
