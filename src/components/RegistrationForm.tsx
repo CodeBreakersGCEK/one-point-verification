@@ -54,7 +54,29 @@ const Form = () => {
   const verifySubmitHandler = async (e: any) => {
     e.preventDefault();
     setIsVerifying('Verifying...');
+    const resUid = await axios.get(`/api/aadhar/${formData.uid}`);
 
+   const res=await axios.post('http://127.0.0.1:8080/face-auth',{userurl:image,aadharurl:resUid.data.photo});
+   if (res.data.matched === 'true') {
+    Swal.fire({
+      title: 'Success',
+      text: 'Image Matched',
+      icon: 'success',
+      confirmButtonText: 'OKAY',
+    });
+    setIsVerified(true);
+    setIsVerifying('Verified');
+  }
+  else {
+    setIsVerifying('Verify');
+    Swal.fire({
+      title: 'Error',
+      text: 'Not Matched',
+      icon: 'error',
+      confirmButtonText: 'OKAY',
+    });
+  }
+    
     const response = await axios.post('/api/verify', {
       uid: formData.uid,
       pan: formData.pan,
