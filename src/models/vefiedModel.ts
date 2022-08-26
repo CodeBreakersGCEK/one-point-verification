@@ -33,16 +33,10 @@ const studentVerifiedSchema = new Schema({
     type: String,
     required: true,
   },
-  // photo: {
-  //   id: {
-  //     type: String,
-  //     required: [true, 'Photo id is required'],
-  //   },
-  //   secure_url: {
-  //     type: String,
-  //     required: true,
-  //   },
-  // },
+  photo: {
+    type: String,
+    required: true,
+  },
   isVerified: {
     type: String,
     enum: {

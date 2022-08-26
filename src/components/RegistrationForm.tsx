@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
 import Swal from 'sweetalert2';
+import Webcam from 'react-webcam';
 
 const initialState = {
   name: '',
@@ -13,6 +14,7 @@ const initialState = {
   registrationNumber: '',
   email: '',
   image: '',
+  photo: '',
 };
 
 const Form = () => {
@@ -24,7 +26,30 @@ const Form = () => {
   const [isVerified, setIsVerified] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const webcamRef = useRef(null);
+  const [imgSrc, setImgSrc] = useState(null);
+  const [image, setImage] = useState('');
+  const [isCaptured, setIsCaptured] = useState(false);
+  const [isUploaded, setIsUploaded] = useState(false);
+
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setImgSrc(imageSrc);
+  }, [webcamRef, setImgSrc]);
+
+  const submitImage = async () => {
+    const response = await axios.post('/api/upload', {
+      image: imgSrc,
+    });
+    if (response.status === 200) {
+      setIsUploaded(true);
+    }
+
+    setImage(response.data.results.url);
+  };
+
   const router = useRouter();
+
   const verifySubmitHandler = async (e: any) => {
     e.preventDefault();
     setIsVerifying('Verifying...');
@@ -65,7 +90,10 @@ const Form = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    const res = await axios.post('/api/verifiedStudent', formData);
+    const res = await axios.post('/api/verifiedStudent', {
+      ...formData,
+      photo: image,
+    });
 
     if (res.data.status === 'success') {
       setData(res.data.data);
@@ -214,6 +242,45 @@ const Form = () => {
               placeholder="Enter Account number"
               className={`${inputClass}`}
             />
+          </div>
+          {/* <WebcamCapture /> */}
+          {!imgSrc && (
+            <Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+            />
+          )}
+          {imgSrc && <img src={imgSrc} />}
+          <div className="flex justify-between w-full p-2">
+            <button
+              disabled={isCaptured}
+              className="cursor-pointer bg-sky-500 text-sm font-medium rounded-md hover:bg-sky-700 text-center uppercase transition-all ease-linear text-white p-2 duration-75 disabled:bg-neutral-400 disabled:cursor-no-drop"
+              onClick={() => {
+                capture();
+                setIsCaptured(true);
+              }}
+            >
+              Capture
+            </button>
+            <button
+              disabled={!isCaptured}
+              className="cursor-pointer bg-green-500 text-sm font-medium rounded-md hover:bg-green-700 text-center uppercase transition-all ease-linear text-white p-2 duration-75 disabled:bg-neutral-400 disabled:cursor-no-drop"
+              onClick={submitImage}
+            >
+              {isUploaded ? 'Uploaded' : 'Upload'}
+            </button>
+            <button
+              disabled={!isCaptured}
+              className="cursor-pointer bg-red-500 text-sm font-medium rounded-md hover:bg-red-700 text-center uppercase transition-all ease-linear text-white p-2 duration-75 disabled:bg-neutral-400 disabled:cursor-no-drop"
+              onClick={() => {
+                setImgSrc(null);
+                setIsCaptured(false);
+              }}
+              color="red"
+            >
+              Reset
+            </button>
           </div>
           <button
             disabled={isVerified}
