@@ -134,13 +134,15 @@ const Form = ({ setIsUser, setData, data }: any) => {
                 setUserData({ ...userData, otp: e.target.value })
               }
             />
-            <button
-              type="button"
-              onClick={sendOtp}
-              className="text-center bg-sky-500 text-white text-md  font-normal rounded-lg px-2 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear"
-            >
-              send otp
-            </button>
+            {isRegister && (
+              <button
+                type="button"
+                onClick={sendOtp}
+                className="text-center bg-sky-500 text-white text-md  font-normal rounded-lg px-2 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear"
+              >
+                send otp
+              </button>
+            )}
           </div>
           <div className="flex">
             <input
@@ -153,13 +155,15 @@ const Form = ({ setIsUser, setData, data }: any) => {
                 setUserData({ ...userData, uid: e.target.value })
               }
             />
-            <button
-              type="button"
-              onClick={verifyOtp}
-              className="text-center bg-green-500 text-white text-md  font-normal rounded-lg px-2 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear ml-2"
-            >
-              Verify
-            </button>
+            {isRegister && (
+              <button
+                type="button"
+                onClick={verifyOtp}
+                className="text-center bg-green-500 text-white text-md  font-normal rounded-lg px-2 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear ml-2"
+              >
+                Verify
+              </button>
+            )}
           </div>
 
           {isRegister && (
