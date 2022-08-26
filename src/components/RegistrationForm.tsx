@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import Lottie from 'lottie-react';
-
 import axios from 'axios';
-import { useContext } from 'react';
-import AppContext from 'src/AppContext';
 import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
 import Swal from 'sweetalert2';

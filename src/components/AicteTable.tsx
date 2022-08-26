@@ -42,7 +42,7 @@ export default function DataTable({ users }: any) {
         pageSize={5}
         rowsPerPageOptions={[7]}
         checkboxSelection
-        getRowId={(row) => row._id}
+        getRowId={(row: any) => row._id}
       />
     </div>
   );

@@ -3,14 +3,24 @@ import AicteTable from '@components/AicteTable';
 
 import axios from 'axios';
 import { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Verify } from 'src/types/data';
+import { useRouter } from 'next/router';
+import AppContext from 'src/AppContext';
 
 const VerifiedUsers: NextPage = () => {
   const [users, setUsers] = useState<Verify[]>([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     getUsers();
+  }, []);
+
+  const router = useRouter();
+  const { user } = useContext(AppContext);
+  useEffect(() => {
+    if (Object.keys(user).length === 0) {
+      router.push('/auth');
+    }
   }, []);
 
   const getUsers = async () => {

@@ -12,11 +12,11 @@ const College: NextPage = () => {
   const [data, setData] = useState({});
   const router = useRouter();
   const { user } = useContext(AppContext);
-  // useEffect(() => {
-  //   if (Object.keys(user).length === 0) {
-  //     router.push('/auth');
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (Object.keys(user).length === 0) {
+      router.push('/auth');
+    }
+  }, []);
 
   useEffect(() => {
     getUsers();
