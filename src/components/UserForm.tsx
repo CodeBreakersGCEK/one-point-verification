@@ -145,16 +145,18 @@ const Form = ({ setIsUser, setData, data }: any) => {
             )}
           </div>
           <div className="flex flex-wrap gap-4">
-            <input
-              className={`${inputClass}`}
-              value={userData.otp}
-              type="text"
-              required
-              placeholder="OTP"
-              onChange={(e) =>
-                setUserData({ ...userData, otp: e.target.value })
-              }
-            />
+            {isRegister && (
+              <input
+                className={`${inputClass}`}
+                value={userData.otp}
+                type="text"
+                required
+                placeholder="OTP"
+                onChange={(e) =>
+                  setUserData({ ...userData, otp: e.target.value })
+                }
+              />
+            )}
             {isRegister && (
               <button
                 type="button"
