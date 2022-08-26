@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+const otpGenerator = require('otp-generator');
 
 const client = require('twilio')(
   'ACc8825ac5125d49591879d7113fd5672d',
@@ -9,18 +10,36 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { number, message } = req.body;
-  client.messages
-    .create({
-      from: '+12676828717',
-      to: number,
-      body: message,
-    })
-    .then(() => {
-      res.send(JSON.stringify({ success: true }));
-    })
-    .catch((err: any) => {
-      console.log(err);
-      res.send(JSON.stringify({ success: false }));
-    });
+  const { method } = req.query;
+  const { number } = req.body;
+
+  const OTP = otpGenerator.generate(6, {
+    upperCaseAlphabets: false,
+    specialChars: false,
+  });
+
+  switch (method) {
+    case 'POST':
+      try {
+        client.messages
+          .create({
+            from: '+12676828717',
+            to: number,
+            body: OTP,
+          })
+          .then(() => {
+            res.send(JSON.stringify({ success: true, otp: OTP }));
+          })
+          .catch((err: any) => {
+            console.log(err);
+            res.send(JSON.stringify({ success: false }));
+          });
+      } catch (error: any) {
+        res.status(404).json({ data: error.message, status: 'error' });
+      }
+      break;
+
+    default:
+      break;
+  }
 }
