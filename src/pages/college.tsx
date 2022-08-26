@@ -9,14 +9,14 @@ import AppContext from 'src/AppContext';
 const College: NextPage = () => {
   const [userData, setUserData] = useState<any>([]);
   const [approved, setApproved] = useState('pending');
-
+  const [data, setData] = useState({});
   const router = useRouter();
   const { user } = useContext(AppContext);
-  useEffect(() => {
-    if (Object.keys(user).length === 0) {
-      router.push('/auth');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Object.keys(user).length === 0) {
+  //     router.push('/auth');
+  //   }
+  // }, []);
 
   useEffect(() => {
     getUsers();
@@ -27,21 +27,39 @@ const College: NextPage = () => {
   }, [approved]);
 
   const getUsers = async () => {
-    const res = await fetch('/api/verifiedStudent');
-    const data = await res.json();
-    setUserData(data.data);
+    const res = await axios.get('/api/verifiedStudent');
+
+    setUserData(res.data.data);
   };
 
   const onClickHandler = async (id: string, type: string) => {
-    await axios.put(`/api/verifiedStudent/${id}`, {
+    const res = await axios.put(`/api/verifiedStudent/${id}`, {
       isVerified: type,
     });
+    console.log(res.data.data.isVerified);
+
     setApproved(type);
+    if (res.data.data.isVerified === 'accepted') {
+      addAicte(res.data.data);
+      deleteData(id);
+    } else if (res.data.data.isVerified === 'rejected') {
+      deleteData(id);
+    }
+  };
+
+  const deleteData = async (id: any) => {
+    await axios.delete(`/api/verifiedStudent/${id}`);
+    getUsers();
+  };
+  const addAicte = async (data: any) => {
+    const res = await axios.post('/api/aicte', data);
+    console.log(res);
   };
 
   return (
     <Layout title="OneVerify | College">
-      <div className="flex gap-8">
+      <div className="flex gap-8 flex-wrap my-6 align-center justify-center">
+        {userData.length < 1 && <h1>NO pending data</h1>}
         {userData.map((data: any) => (
           <div
             key={data.uid}
@@ -74,8 +92,12 @@ const College: NextPage = () => {
                 </button>
               </div>
             )}
-            {data.isVerified === 'accepted' && <div>Approved</div>}
-            {data.isVerified === 'rejected' && <div>Rejected</div>}
+            {data.isVerified === 'accepted' && (
+              <div className="text-green-500">Approved</div>
+            )}
+            {data.isVerified === 'rejected' && (
+              <div className="text-red-500">Rejected</div>
+            )}
           </div>
         ))}
       </div>

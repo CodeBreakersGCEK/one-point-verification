@@ -24,7 +24,7 @@ export default async function handler(
         await newStudent.save();
         res.status(200).json({ data: newStudent, status: 'success' });
       } catch (error: any) {
-        res.status(404).json({ data: error.message, status: 'error' });
+        res.status(200).json({ data: error.message, status: 'error' });
       }
       break;
 

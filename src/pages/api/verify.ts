@@ -12,17 +12,27 @@ export default async function handler(
   await connectMongo();
   const { uid, pan, bankAccount } = req.body;
   const { method } = req;
-  console.log(req.body);
+  // console.log(req.body);
 
   switch (method) {
     case 'POST':
       try {
         const user = await VerifyModel.findOne({ uid: uid });
         if (user) {
-          res.status(200).json({
-            message: `${uid} number is already verified with BankAcc ${user.bankAccount} and pan ${user.pan}`,
-            status: 'error',
-          });
+          if (user.pan !== pan) {
+            res
+              .status(200)
+              .json({ message: 'Invalid PanCard', status: 'error' });
+            return;
+          } else if (user.bankAccount !== bankAccount) {
+            res
+              .status(200)
+              .json({ message: 'Invalid Bank Account', status: 'error' });
+            return;
+          }
+          res
+            .status(200)
+            .json({ message: 'User is alreary verified', status: 'success' });
           return;
         }
         const uidData = await AadharSchema.findOne({ uid: uid });

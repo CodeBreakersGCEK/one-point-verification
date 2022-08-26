@@ -28,7 +28,7 @@ const Form = () => {
   const [isVerified, setIsVerified] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-
+  const router = useRouter();
   const verifySubmitHandler = async (e: any) => {
     e.preventDefault();
     setIsVerifying('Verifying...');
@@ -75,8 +75,18 @@ const Form = () => {
       setData(res.data.data);
       setIsLoading(false);
       setIsSubmit(true);
+      enqueueSnackbar('Register Successfully!', {
+        variant: 'success',
+        autoHideDuration: 2000,
+        anchorOrigin: {
+          horizontal: 'right',
+          vertical: 'top',
+        },
+      });
+      router.push('/status');
     } else {
-      enqueueSnackbar(res.data.message, {
+      setIsLoading(false);
+      enqueueSnackbar('This Aadhar is aleady Used', {
         variant: 'error',
         autoHideDuration: 2000,
         anchorOrigin: {
