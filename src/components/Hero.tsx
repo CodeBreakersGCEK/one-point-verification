@@ -20,7 +20,7 @@ const Hero = () => {
             The simplest and fastest way to get your UID, PAN, Bank verified
             with AICTE.
           </p>
-          <Link href={Object.keys(user).length === 0 ? '/auth' : '/verify'}>
+          <Link href="/auth">
             <a className="text-center bg-green-400 text-white text-xl text-md font-normal rounded-lg px-20 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear">
               Verify
             </a>
