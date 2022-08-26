@@ -73,6 +73,7 @@ const College: NextPage = () => {
               <p>Registration No: {data.registrationNo}</p>
               <p>Name: {data.name}</p>
               <p>Email: {data.email}</p>
+              <img src={data.photo} alt={data.name} />
             </div>
             {data.isVerified === 'pending' && (
               <div className="flex justify-around text-white">

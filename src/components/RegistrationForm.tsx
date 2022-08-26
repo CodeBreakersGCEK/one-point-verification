@@ -33,6 +33,7 @@ const Form = () => {
   const [isUploaded, setIsUploaded] = useState(false);
 
   const capture = useCallback(() => {
+    // @ts-ignore: Object is possibly 'null'.
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
   }, [webcamRef, setImgSrc]);
