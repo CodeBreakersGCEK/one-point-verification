@@ -13,15 +13,18 @@ const initialState = {
   name: '',
   email: '',
   type: '',
+  otp: '',
 };
 
 const Form = ({ setIsUser, setData, data }: any) => {
+  const [number, setNumber] = useState('');
   const router = useRouter();
   const { setUser } = useContext(AppContext);
   const [isRegister, setIsRegister] = useState(false);
   const [userData, setUserData] = useState(initialState);
   const [loading, setLoading] = useState(false);
-
+  const [disable, setDisable] = useState(true);
+  const [otp, setOtp] = useState();
   const { enqueueSnackbar } = useSnackbar();
   const SubmitForm = async (e: any) => {
     e.preventDefault();
@@ -69,6 +72,23 @@ const Form = ({ setIsUser, setData, data }: any) => {
 
   const inputClass = 'border-2 outline-none rounded-lg px-4 py-2';
 
+  const sendOtp = async () => {
+    getNumber();
+    const res = await axios.post('/api/message', {
+      number,
+    });
+    setOtp(res.data.otp);
+  };
+  const verifyOtp = async () => {
+    if (userData.otp === otp) {
+      setDisable(false);
+    }
+  };
+  const getNumber = async () => {
+    const res = await axios.get(`/api/aadhar/${userData.uid}`);
+    setNumber(res.data.phone);
+  };
+
   return (
     <div className="flex gap-12 items-center">
       <div className="flex-1 md:block hidden">
@@ -103,14 +123,45 @@ const Form = ({ setIsUser, setData, data }: any) => {
           </a>
         </div>
         <div className="flex flex-col justify-between gap-6 p-10 w-full">
-          <input
-            className={`${inputClass}`}
-            value={userData.uid}
-            type="number"
-            required
-            placeholder="Unique Id / AADHAAR No."
-            onChange={(e) => setUserData({ ...userData, uid: e.target.value })}
-          />
+          <div className="flex ">
+            <input
+              className={`${inputClass}`}
+              value={userData.uid}
+              type="text"
+              required
+              placeholder="AADHAR."
+              onChange={(e) =>
+                setUserData({ ...userData, otp: e.target.value })
+              }
+            />
+            <button
+              type="button"
+              onClick={sendOtp}
+              className="text-center bg-sky-500 text-white text-md  font-normal rounded-lg px-2 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear"
+            >
+              send otp
+            </button>
+          </div>
+          <div className="flex">
+            <input
+              className={`${inputClass}`}
+              value={userData.otp}
+              type="text"
+              required
+              placeholder="OTP"
+              onChange={(e) =>
+                setUserData({ ...userData, uid: e.target.value })
+              }
+            />
+            <button
+              type="button"
+              onClick={verifyOtp}
+              className="text-center bg-green-500 text-white text-md  font-normal rounded-lg px-2 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear ml-2"
+            >
+              Verify
+            </button>
+          </div>
+
           {isRegister && (
             <>
               <select
@@ -159,7 +210,10 @@ const Form = ({ setIsUser, setData, data }: any) => {
               setUserData({ ...userData, password: e.target.value })
             }
           />
-          <button className="text-center bg-sky-500 text-white text-xl text-md font-normal rounded-lg px-20 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear">
+          <button
+            className={`disabled:bg-neutral-400 disabled:cursor-no-drop text-center bg-sky-500 text-white text-xl text-md font-normal rounded-lg px-20 py-2 scale-100 hover:scale-105 transition-transform duration-300 ease-linear`}
+            disabled={isRegister && disable}
+          >
             {isRegister ? 'Register' : 'Login'}
           </button>
         </div>
