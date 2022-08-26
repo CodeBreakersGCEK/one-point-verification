@@ -123,7 +123,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
           </a>
         </div>
         <div className="flex flex-col justify-between gap-6 p-10 w-full">
-          <div className="flex ">
+          <div className="flex flex-wrap gap-4">
             <input
               className={`${inputClass}`}
               value={userData.uid}
@@ -144,7 +144,7 @@ const Form = ({ setIsUser, setData, data }: any) => {
               </button>
             )}
           </div>
-          <div className="flex">
+          <div className="flex flex-wrap gap-4">
             <input
               className={`${inputClass}`}
               value={userData.otp}
